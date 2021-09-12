@@ -5,6 +5,7 @@ import useWindowWidth from "../../hooks/useWindowWidth";
 import Footer from "../Footer";
 import { setFilter } from "../../actions";
 import { FilterBtn } from "../../utilities/buttons";
+import Login from "../Auth/Login";
 import { RootState, Item } from "../../Types";
 import { Twirl as Hamburger } from "hamburger-react";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
@@ -121,6 +122,8 @@ const SideNav = () => {
             </S.RoadList>
           </S.RoadListWrapper>
         </S.RoadMap>
+        <Login />
+
         <Footer />
       </S.Menu>
     </S.Wrapper>
