@@ -6,6 +6,8 @@ import FeedbackNew from "./pages/FeedbackNew";
 import FeedbackEdit from "./pages/FeedbackEdit";
 import Roadmap from "./pages/Roadmap";
 import GlobalStyle from "./GlobalStyle";
+import { ThemeProvider } from "@mui/material/styles";
+import { theme } from "./utilities/theme";
 import { AnimatePresence } from "framer-motion";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -16,21 +18,28 @@ const App = () => {
   return (
     <>
       <GlobalStyle />
-      <ToastContainer />
-      <AnimatePresence exitBeforeEnter>
-        <Switch location={location} key={location.pathname}>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/feedback-detail/:id" component={FeedbackDetail} />
-          <Route exact path="/feedback-new" component={FeedbackNew} />
-          <Route
-            exact
-            path="/feedback-detail/:id/edit"
-            component={FeedbackEdit}
-          />
-          <Route exact path="/roadmap" component={Roadmap}></Route>
-          <Route component={NotFound} />
-        </Switch>
-      </AnimatePresence>
+
+      <ThemeProvider theme={theme}>
+        <ToastContainer />
+        <AnimatePresence exitBeforeEnter>
+          <Switch location={location} key={location.pathname}>
+            <Route exact path="/" component={Home} />
+            <Route
+              exact
+              path="/feedback-detail/:id"
+              component={FeedbackDetail}
+            />
+            <Route exact path="/feedback-new" component={FeedbackNew} />
+            <Route
+              exact
+              path="/feedback-detail/:id/edit"
+              component={FeedbackEdit}
+            />
+            <Route exact path="/roadmap" component={Roadmap}></Route>
+            <Route component={NotFound} />
+          </Switch>
+        </AnimatePresence>
+      </ThemeProvider>
     </>
   );
 };

@@ -110,5 +110,6 @@ const GlobalStyle = createGlobalStyle`
         line-height:2rem;
         letter-spacing:-.02rem;
     }
+
 `;
 export default GlobalStyle;
