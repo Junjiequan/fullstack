@@ -1,18 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Button, TextField } from "@mui/material";
+import { Button, TextField, Box } from "@mui/material";
+import * as L from "./AuthElements";
+import { muiConstants } from "../../utilities/muiConstants";
 
-const fontSize = {
-  input: {
-    fontSize: 14,
-    padding: 14,
-  },
-  label(text: string) {
-    return (
-      <span style={{ fontSize: 14, textTransform: "capitalize" }}>{text}</span>
-    );
-  },
-};
 const Login = () => {
   const [form, setForm] = useState({});
   const handleSubmit = async (e) => {
@@ -43,12 +34,12 @@ const Login = () => {
       >
         <TextField
           type="text"
-          inputProps={{ "aria-label": "username", style: fontSize.input }}
+          inputProps={{ "aria-label": "username", style: muiConstants.input }}
           name="userName"
           fullWidth
-          sx={{ my: 1.2 }}
+          sx={{ my: 1 }}
           id="outlined-basic"
-          label={fontSize.label("username")}
+          label={muiConstants.label("username")}
           variant="outlined"
           onChange={handleChange}
         />
@@ -56,13 +47,13 @@ const Login = () => {
           type="password"
           inputProps={{
             "aria-label": "password",
-            style: fontSize.input,
+            style: muiConstants.input,
           }}
           name="password"
           fullWidth
-          sx={{ my: 1.2 }}
+          sx={{ my: 1 }}
           id="outlined-basic"
-          label={fontSize.label("password")}
+          label={muiConstants.label("password")}
           variant="outlined"
           onChange={handleChange}
         />
@@ -73,10 +64,13 @@ const Login = () => {
         type="submit"
         form="loginForm"
         value="Submit"
-        sx={{ mt: 1, p: 1.5, fontSize: "1.2rem", letterSpacing: "0.1rem" }}
+        sx={{ mt: 1, p: 1.2, fontSize: "1.2rem", letterSpacing: "0.1rem" }}
       >
         Login
       </Button>
+      <Box mt={1.5}>
+        No account yet? <L.Register href="/register">Register</L.Register>
+      </Box>
     </div>
   );
 };
