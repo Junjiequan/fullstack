@@ -8,9 +8,9 @@ const Login = () => {
   const [form, setForm] = useState({});
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { userName, password } = form as any;
+    const { username, password } = form as any;
     const URL = "http://localhost:5000/auth";
-    const data = await axios.post(URL + "/login", { userName, password });
+    const data = await axios.post(URL + "/login", { username, password });
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.currentTarget.name]: e.currentTarget.value });
@@ -35,7 +35,7 @@ const Login = () => {
         <TextField
           type="text"
           inputProps={{ "aria-label": "username", style: muiConstants.input }}
-          name="userName"
+          name="username"
           fullWidth
           sx={{ my: 1 }}
           id="outlined-basic"
