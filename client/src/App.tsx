@@ -5,6 +5,7 @@ import FeedbackDetail from "./pages/FeedbackDetail";
 import FeedbackNew from "./pages/FeedbackNew";
 import FeedbackEdit from "./pages/FeedbackEdit";
 import Roadmap from "./pages/Roadmap";
+import SignupPage from "./pages/SignupPage";
 import GlobalStyle from "./GlobalStyle";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./utilities/theme";
@@ -24,18 +25,11 @@ const App = () => {
         <AnimatePresence exitBeforeEnter>
           <Switch location={location} key={location.pathname}>
             <Route exact path="/" component={Home} />
-            <Route
-              exact
-              path="/feedback-detail/:id"
-              component={FeedbackDetail}
-            />
-            <Route exact path="/feedback-new" component={FeedbackNew} />
-            <Route
-              exact
-              path="/feedback-detail/:id/edit"
-              component={FeedbackEdit}
-            />
-            <Route exact path="/roadmap" component={Roadmap}></Route>
+            <Route path="/feedback-detail/:id" component={FeedbackDetail} />
+            <Route path="/feedback-new" component={FeedbackNew} />
+            <Route path="/feedback-detail/:id/edit" component={FeedbackEdit} />
+            <Route path="/roadmap" component={Roadmap}></Route>
+            <Route path="/signup" component={SignupPage}></Route>
             <Route component={NotFound} />
           </Switch>
         </AnimatePresence>

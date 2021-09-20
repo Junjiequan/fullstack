@@ -22,6 +22,7 @@ export const WIDTH = {
   desktop: "111rem",
   feedback: "73rem",
   newFeedback: "54rem",
+  signup: "30rem",
 };
 
 export const SPACE = {

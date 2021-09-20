@@ -1,37 +1,23 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Button, TextField, Box } from "@mui/material";
-import * as L from "./AuthElements";
 import { muiConstants } from "../../utilities/muiConstants";
 
-const Login = () => {
+const Signup = () => {
   const [form, setForm] = useState({});
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { username, password } = form as any;
     const URL = "http://localhost:5000/auth";
-    const data = await axios.post(URL + "/login", { username, password });
+    const data = await axios.post(URL + "/signup", { username, password });
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.currentTarget.name]: e.currentTarget.value });
   };
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        padding: "1.2rem 2.4rem 2.4rem",
-        marginTop: "2rem",
-        background: `white`,
-        borderRadius: "10px",
-      }}
-    >
-      <form
-        id="loginForm"
-        onSubmit={handleSubmit}
-        noValidate
-        autoComplete="off"
-      >
+    <div>
+      <h1 style={{ margin: "2rem 0" }}>REGISTER</h1>
+      <form id="signupForm" onSubmit={handleSubmit} autoComplete="off">
         <TextField
           type="text"
           inputProps={{ "aria-label": "username", style: muiConstants.input }}
@@ -44,7 +30,7 @@ const Login = () => {
           onChange={handleChange}
         />
         <TextField
-          type="password"
+          type="text"
           inputProps={{
             "aria-label": "password",
             style: muiConstants.input,
@@ -62,17 +48,15 @@ const Login = () => {
         variant="contained"
         color="primary"
         type="submit"
-        form="loginForm"
+        form="signupForm"
         value="Submit"
+        fullWidth
         sx={{ mt: 1, p: 1.2, fontSize: "1.2rem", letterSpacing: "0.1rem" }}
       >
-        Login
+        Signup
       </Button>
-      <Box mt={1.5}>
-        No account yet? <L.Register href="/signup">Register</L.Register>
-      </Box>
     </div>
   );
 };
 
-export default Login;
+export default Signup;

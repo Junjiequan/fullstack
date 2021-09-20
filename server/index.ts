@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 
 const express = require("express");
 const cors = require("cors");
-
+const mongoose = require("mongoose");
 const authRoutes = require("./routes/auth.ts");
 
 const app = express();
@@ -19,6 +19,14 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.use("/auth", authRoutes);
+
+mongoose.connect(
+  process.env.DB_LOGIN,
+  { useNewUrlParser: true, useUnifiedTopology: true },
+  () => {
+    console.log("connected to mongoDB.");
+  }
+);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
