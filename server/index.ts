@@ -14,17 +14,20 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use("/auth", authRoutes);
+
 app.get("/", (req: Request, res: Response) => {
   res.send("hello I am server  eys!!!!!");
 });
 
-app.use("/auth", authRoutes);
-
 mongoose.connect(
   process.env.DB_LOGIN,
   { useNewUrlParser: true, useUnifiedTopology: true },
-  () => {
-    console.log("connected to mongoDB.");
+  (req, res) => {
+    if (!res) {
+      console.log("server login failed");
+    }
+    console.log("MongoDB connected");
   }
 );
 
