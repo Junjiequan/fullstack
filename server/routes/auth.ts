@@ -19,12 +19,21 @@ router.post("/signup", (req: Request, res: Response) => {
       })
       .catch((err: any) => {
         if (err) {
-          res.status(400).json({ error: err });
-          console.log(`USER EXISTED`);
+          res.status(400).json({ error: "USER EXISTED!" });
         }
       });
   });
 });
-// router.post("/login", login);
+
+router.post("/login", async (req: Request, res: Response) => {
+  const { username, password } = req.body;
+  const user = await USERS.findOne({ username: username });
+
+  if (!user) {
+    res.status(404).json({ error: "USER DOESN'T EXIST!" });
+  } else {
+    res.json("LOGGED IN");
+  }
+});
 
 module.exports = router;

@@ -23,7 +23,7 @@ app.get("/", (req: Request, res: Response) => {
 mongoose.connect(
   process.env.DB_LOGIN,
   { useNewUrlParser: true, useUnifiedTopology: true },
-  (req, res) => {
+  (req: Request, res: Response) => {
     if (!res) {
       console.log("server login failed");
     }

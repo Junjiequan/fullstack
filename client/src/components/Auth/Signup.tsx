@@ -1,15 +1,28 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router";
 import axios from "axios";
 import { Button, TextField, Box } from "@mui/material";
 import { muiConstants } from "../../utilities/muiConstants";
+import { signup_success, signup_fail } from "../../utilities/notifications";
 
 const Signup = () => {
+  const history = useHistory();
   const [form, setForm] = useState({});
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { username, password } = form as any;
     const URL = "http://localhost:5000/auth";
-    const data = await axios.post(URL + "/signup", { username, password });
+    try {
+      const res = await axios.post(URL + "/signup", { username, password });
+      if (res.data) {
+        signup_success();
+      }
+    } catch (err: any) {
+      if (err) {
+        console.log(err.response.data);
+        signup_fail();
+      }
+    }
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.currentTarget.name]: e.currentTarget.value });
@@ -24,9 +37,10 @@ const Signup = () => {
           name="username"
           fullWidth
           sx={{ my: 1 }}
-          id="outlined-basic"
+          id="signup-username"
           label={muiConstants.label("username")}
           variant="outlined"
+          required
           onChange={handleChange}
         />
         <TextField
@@ -38,9 +52,10 @@ const Signup = () => {
           name="password"
           fullWidth
           sx={{ my: 1 }}
-          id="outlined-basic"
+          id="signup-password"
           label={muiConstants.label("password")}
           variant="outlined"
+          required
           onChange={handleChange}
         />
       </form>
