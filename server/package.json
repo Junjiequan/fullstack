@@ -6,7 +6,7 @@
   "type": "commonjs",
   "scripts": {
     "start": "ts-node index.ts",
-    "dev": "ts-node-dev ./index.ts"
+    "server": "ts-node-dev ./index.ts"
   },
   "keywords": [],
   "author": "",
@@ -16,7 +16,6 @@
     "@types/node": "^16.9.1",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
-    "crypto": "^1.0.1",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",

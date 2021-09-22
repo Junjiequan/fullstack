@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router";
 import axios from "axios";
-import { Button, TextField, Box } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import { muiConstants } from "../../utilities/muiConstants";
 import { signup_success, signup_fail } from "../../utilities/notifications";
 
@@ -15,12 +15,13 @@ const Signup = () => {
     try {
       const res = await axios.post(URL + "/signup", { username, password });
       if (res.data) {
-        signup_success();
+        history.push("/");
+        signup_success(res.data.message);
       }
     } catch (err: any) {
       if (err) {
         console.log(err.response.data);
-        signup_fail();
+        signup_fail(err.response.data.error);
       }
     }
   };

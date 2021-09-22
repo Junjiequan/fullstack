@@ -19,8 +19,6 @@ export const removed = () =>
 export const edited = () =>
   toast.info("🧐 Feedback edited successfully!", custom_style);
 
-export const signup_success = () =>
-  toast.info("User registered successfully!", custom_style);
+export const signup_success = (text: string) => toast.info(text, custom_style);
 
-export const signup_fail = () =>
-  toast.error("Username already existed", custom_style);
+export const signup_fail = (text: string) => toast.error(text, custom_style);

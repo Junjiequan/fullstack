@@ -17,11 +17,13 @@ const Login = () => {
       });
 
       console.log(resp.data);
+      alert(resp.data.message);
     } catch (err: any) {
       /**
        * @desc err only returns statusCode whereas err.response returns object
        */
-      console.log(err.response);
+      console.log(err.response.data);
+      alert(err.response.data.error);
     }
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
