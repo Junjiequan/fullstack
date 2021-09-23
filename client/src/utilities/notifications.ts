@@ -22,3 +22,6 @@ export const edited = () =>
 export const signup_success = (text: string) => toast.info(text, custom_style);
 
 export const signup_fail = (text: string) => toast.error(text, custom_style);
+
+export const login_success = (text: string) =>
+  toast.info("User " + text + " Logged In", custom_style);

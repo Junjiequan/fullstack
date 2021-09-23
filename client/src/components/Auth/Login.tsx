@@ -3,6 +3,7 @@ import axios from "axios";
 import { Button, TextField, Box } from "@mui/material";
 import * as L from "./AuthElements";
 import { muiConstants } from "../../utilities/muiConstants";
+import { login_success } from "../../utilities/notifications";
 
 const Login = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -28,6 +29,7 @@ const Login = () => {
         const user = await axios.get(PROFILE);
         setLoggedIn(true);
         setUser(user.data);
+        login_success(user.data);
       } else {
         alert(resp.data.message);
       }
@@ -47,15 +49,15 @@ const Login = () => {
       <div
         style={{
           display: "flex",
-          flexDirection: "column",
-          padding: "1.2rem 2.4rem 2.4rem",
+          justifyContent: "center",
+          alignItems: "center",
+          padding: "4rem 2.4rem ",
           marginTop: "2rem",
           background: `white`,
           borderRadius: "10px",
-          textAlign: "center",
         }}
       >
-        Welcome, {user}.
+        Welcome, &nbsp;<b style={{ color: "RebeccaPurple" }}>{user}</b>.
       </div>
     );
   }
