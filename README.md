@@ -17,7 +17,7 @@ cd fullstack/client npm install
 cd fullstack/server npm install
 ```
 
-Run app 
+Run app & Run server
 
 ```
 cd fullstack/client npm run start
