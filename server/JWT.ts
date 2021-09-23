@@ -10,12 +10,13 @@ interface IRequest extends Request {
 }
 
 const { sign, verify } = require("jsonwebtoken");
-const SECRET = "SECRET_INVISIBLE_KEY";
 
 const createTokens = (user: Iuser): void => {
-  const accessToken = sign({ username: user.username, id: user.id }, SECRET, {
-    expiresIn: "30d",
-  });
+  const accessToken = sign(
+    { username: user.username, id: user.id },
+    process.env.JWT_SECRET,
+    { expiresIn: process.env.JWT_EXPIRES_IN }
+  );
 
   return accessToken;
 };
@@ -30,7 +31,7 @@ const validateToken: RequestHandler = (
     return res.status(401).json({ error: "User Not Authenticated!" });
 
   try {
-    const validToken = verify(accessToken, SECRET);
+    const validToken = verify(accessToken, process.env.JWT_SECRET);
     if (validToken) {
       req.authenticated = true;
       req.userData = validToken;
