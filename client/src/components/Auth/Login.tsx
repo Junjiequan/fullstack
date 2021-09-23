@@ -5,6 +5,8 @@ import * as L from "./AuthElements";
 import { muiConstants } from "../../utilities/muiConstants";
 
 const Login = () => {
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
   const [form, setForm] = useState({});
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,14 +16,21 @@ const Login = () => {
 
     const { username, password } = form as any;
     const URL = "http://localhost:5000/auth";
+    const PROFILE = "http://localhost:5000/profile";
     try {
       const resp = await axios.post(URL + "/login", {
         username,
         password,
       });
 
-      console.log(resp.data);
-      alert(resp.data.message);
+      console.log(resp.status);
+      if (resp.status === 200) {
+        const user = await axios.get(PROFILE);
+        setLoggedIn(true);
+        setUser(user.data);
+      } else {
+        alert(resp.data.message);
+      }
     } catch (err: any) {
       /**
        * @desc err only returns statusCode whereas err.response returns object
@@ -33,6 +42,23 @@ const Login = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.currentTarget.name]: e.currentTarget.value });
   };
+  if (loggedIn) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          padding: "1.2rem 2.4rem 2.4rem",
+          marginTop: "2rem",
+          background: `white`,
+          borderRadius: "10px",
+          textAlign: "center",
+        }}
+      >
+        Welcome, {user}.
+      </div>
+    );
+  }
   return (
     <div
       style={{
