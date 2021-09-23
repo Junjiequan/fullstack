@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
-const express = require("express");
-const router = express.Router();
-const USERS = require("../models/user");
 
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt"); //hasing password
-// const crypto = require("crypto"); //saving password with security
+const express = require("express");
+
+const USERS = require("../models/user");
+const bcrypt = require("bcrypt");
+const { createTokens } = require("../JWT");
+
+const router = express.Router();
 
 router.post("/signup", (req: Request, res: Response) => {
   const { username, password } = req.body;
@@ -17,7 +18,7 @@ router.post("/signup", (req: Request, res: Response) => {
       .then(() => {
         res.json({ message: "User Registered successfully" });
       })
-      .catch((err: any) => {
+      .catch((err: never) => {
         if (err) {
           res.status(400).json({ error: "User Exists!" });
         }
@@ -36,6 +37,11 @@ router.post("/login", async (req: Request, res: Response) => {
   bcrypt.compare(password, hashedPassword, (err, data) => {
     if (err) throw err;
     if (data) {
+      const accessToken = createTokens(user);
+      res.cookie("access-token", accessToken, {
+        maxAge: 2628000,
+        httpOnly: true,
+      });
       return res.status(200).json({ message: "Logged In" });
     } else {
       return res.status(403).json({ error: "Wrong Password" });

@@ -25,11 +25,19 @@ const App = () => {
         <AnimatePresence exitBeforeEnter>
           <Switch location={location} key={location.pathname}>
             <Route exact path="/" component={Home} />
-            <Route path="/feedback-detail/:id" component={FeedbackDetail} />
-            <Route path="/feedback-new" component={FeedbackNew} />
-            <Route path="/feedback-detail/:id/edit" component={FeedbackEdit} />
-            <Route path="/roadmap" component={Roadmap}></Route>
-            <Route path="/signup" component={SignupPage}></Route>
+            <Route
+              exact
+              path="/feedback-detail/:id"
+              component={FeedbackDetail}
+            />
+            <Route exact path="/feedback-new" component={FeedbackNew} />
+            <Route
+              exact
+              path="/feedback-detail/:id/edit"
+              component={FeedbackEdit}
+            />
+            <Route exact path="/roadmap" component={Roadmap}></Route>
+            <Route exact path="/signup" component={SignupPage}></Route>
             <Route component={NotFound} />
           </Switch>
         </AnimatePresence>

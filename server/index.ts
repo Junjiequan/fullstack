@@ -1,23 +1,35 @@
 import { Request, Response } from "express";
 
+interface Username {
+  username: string;
+}
+interface IRequest extends Request {
+  userData: Username;
+}
+
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
+
 const authRoutes = require("./routes/auth.ts");
+const { validateToken } = require("./JWT");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const origin = "http://localhost:3000";
 
 require("dotenv").config();
 
-app.use(cors());
+app.use(cors({ credentials: true, origin: origin }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 app.use("/auth", authRoutes);
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("hello I am server  eys!!!!!");
+app.get("/profile", validateToken, (req: IRequest, res: Response) => {
+  res.json(req.userData.username);
 });
 
 mongoose.connect(

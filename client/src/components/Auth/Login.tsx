@@ -8,6 +8,10 @@ const Login = () => {
   const [form, setForm] = useState({});
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // must set credential to true in order to set cookie
+    axios.defaults.withCredentials = true;
+
     const { username, password } = form as any;
     const URL = "http://localhost:5000/auth";
     try {
