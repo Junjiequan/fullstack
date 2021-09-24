@@ -7,7 +7,7 @@ export const muiConstants = {
     return (
       <span
         style={{
-          fontSize: 14,
+          fontSize: 15,
           textTransform: "capitalize",
         }}
       >

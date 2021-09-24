@@ -168,3 +168,27 @@ export const SignupWrapper = styled.div`
     margin-top: ${SPACE.topMob};
   }
 `;
+
+//////////////////////////
+//login
+//////////////////////////
+
+export const LoginContainer = styled(motion.div)`
+  display: flex;
+  padding: ${SPACE.container};
+  justify-content: center;
+  @media ${DEVICE.sm} {
+    padding: 0 2.4rem;
+  }
+`;
+export const LoginWrapper = styled.div`
+  margin-top: ${SPACE.top};
+  max-width: ${WIDTH.signup};
+  width: 100%;
+  display: flex;
+
+  flex-direction: column;
+  @media ${DEVICE.sm} {
+    margin-top: ${SPACE.topMob};
+  }
+`;

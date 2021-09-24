@@ -6,6 +6,7 @@ import Footer from "../Footer";
 import { setFilter } from "../../actions";
 import { FilterBtn } from "../../utilities/buttons";
 import Login from "../Auth/Login";
+import { Button, Box } from "@mui/material";
 import { RootState, Item } from "../../Types";
 import { Twirl as Hamburger } from "hamburger-react";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
@@ -25,7 +26,7 @@ const SideNav = () => {
   ).length;
   const [isOpen, setIsOpen] = useState(false);
   const windowSize = useWindowWidth();
-  const isMobile = windowSize <= 767;
+  const isMobile = windowSize <= 768;
   isOpen ? disableBodyScroll(document) : enableBodyScroll(document);
   const dispatch = useDispatch();
   const categoryFilter = useSelector((state: any) => state.filters);
@@ -66,6 +67,45 @@ const SideNav = () => {
             onClick={() => setIsOpen((prev: any) => !prev)}
           />
           <S.MobileWrapper data-mobile-nav={isOpen}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: "2.5rem",
+              }}
+            >
+              <Button
+                href="/login"
+                variant="contained"
+                color="primary"
+                type="button"
+                value="login"
+                fullWidth
+                sx={{
+                  p: 1.2,
+                  fontSize: "1.2rem",
+                  letterSpacing: "0.1rem",
+                }}
+              >
+                Login
+              </Button>
+              <Button
+                href="/signup"
+                variant="contained"
+                color="secondary"
+                type="button"
+                value="register"
+                fullWidth
+                sx={{
+                  ml: 1,
+                  p: 1.2,
+                  fontSize: "1.2rem",
+                  letterSpacing: "0.1rem",
+                }}
+              >
+                Register
+              </Button>
+            </Box>
             <S.FilterWrapper>{FilterIDs.map(FilterBtns)}</S.FilterWrapper>
             <S.RoadMap>
               <S.RoadTitleRow>
@@ -96,37 +136,45 @@ const SideNav = () => {
     );
   }
   return (
-    <S.Wrapper>
-      <S.TitleWrapper>
-        <S.Title>
-          <S.H1>Frontend Mentor</S.H1>
-          <S.P>Feedback Board</S.P>
-        </S.Title>
-      </S.TitleWrapper>
-      <S.Menu>
-        <S.FilterWrapper>{FilterIDs.map(FilterBtns)}</S.FilterWrapper>
-        <S.RoadMap>
-          <S.RoadTitleRow>
-            <S.RoadH2>Roadmap</S.RoadH2>
-            <S.RoadView to="/roadmap">View</S.RoadView>
-          </S.RoadTitleRow>
-          <S.RoadListWrapper>
-            <S.RoadList color="Orange" data-count={PlannedCount}>
-              Planned
-            </S.RoadList>
-            <S.RoadList color="DarkViolet" data-count={inProgressCount}>
-              In-Progress
-            </S.RoadList>
-            <S.RoadList color="LightSkyBlue" data-count={liveCount}>
-              Live
-            </S.RoadList>
-          </S.RoadListWrapper>
-        </S.RoadMap>
-        <Login />
-
-        <Footer />
-      </S.Menu>
-    </S.Wrapper>
+    <>
+      <S.Wrapper>
+        <S.TitleWrapper>
+          <S.Title>
+            <S.H1>Frontend Mentor</S.H1>
+            <S.P>Feedback Board</S.P>
+          </S.Title>
+        </S.TitleWrapper>
+        <S.Menu>
+          <S.FilterWrapper>{FilterIDs.map(FilterBtns)}</S.FilterWrapper>
+          <S.RoadMap>
+            <S.RoadTitleRow>
+              <S.RoadH2>Roadmap</S.RoadH2>
+              <S.RoadView to="/roadmap">View</S.RoadView>
+            </S.RoadTitleRow>
+            <S.RoadListWrapper>
+              <S.RoadList color="Orange" data-count={PlannedCount}>
+                Planned
+              </S.RoadList>
+              <S.RoadList color="DarkViolet" data-count={inProgressCount}>
+                In-Progress
+              </S.RoadList>
+              <S.RoadList color="LightSkyBlue" data-count={liveCount}>
+                Live
+              </S.RoadList>
+            </S.RoadListWrapper>
+          </S.RoadMap>
+        </S.Menu>
+        <Box
+          sx={{
+            display: isMobile ? "none" : "flex",
+            flexDirection: "column",
+          }}
+        >
+          <Login />
+          <Footer />
+        </Box>
+      </S.Wrapper>
+    </>
   );
 };
 

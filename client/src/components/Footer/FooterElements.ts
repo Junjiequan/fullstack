@@ -18,6 +18,5 @@ export const FooterContainer = styled.div`
   font-size: 1.2rem;
   max-width: 25.7rem;
   display: flex;
-  margin: 2rem 0;
   justify-content: center;
 `;

@@ -6,6 +6,7 @@ import FeedbackNew from "./pages/FeedbackNew";
 import FeedbackEdit from "./pages/FeedbackEdit";
 import Roadmap from "./pages/Roadmap";
 import SignupPage from "./pages/SignupPage";
+import LoginPage from "./pages/LoginPage";
 import GlobalStyle from "./GlobalStyle";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./utilities/theme";
@@ -38,6 +39,7 @@ const App = () => {
             />
             <Route exact path="/roadmap" component={Roadmap}></Route>
             <Route exact path="/signup" component={SignupPage}></Route>
+            <Route exact path="/login" component={LoginPage}></Route>
             <Route component={NotFound} />
           </Switch>
         </AnimatePresence>
