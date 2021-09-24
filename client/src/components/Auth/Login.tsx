@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Button, TextField, Box } from "@mui/material";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import * as L from "./AuthElements";
 import { muiConstants } from "../../utilities/muiConstants";
@@ -14,7 +16,7 @@ const Login = () => {
   const [form, setForm] = useState({});
 
   const isMobile = useMediaQuery("(max-width:750px)");
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault();
 
     // must set credential to true in order to set cookie
@@ -137,7 +139,8 @@ const Login = () => {
       </Button>
       {!isMobile && (
         <Box my={1.5}>
-          No account yet? <L.Register href="/signup">Register</L.Register>
+          No account yet?
+          <L.Register href="/signup">Register</L.Register>
         </Box>
       )}
     </Box>

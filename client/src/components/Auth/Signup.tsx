@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router";
 import axios from "axios";
-import { Button, TextField } from "@mui/material";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 import { muiConstants } from "../../utilities/muiConstants";
 import { signup_success, signup_fail } from "../../utilities/notifications";
 
 const Signup = () => {
   const history = useHistory();
   const [form, setForm] = useState({});
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault();
     const { username, password } = form as any;
     const URL = "http://localhost:5000/auth";

@@ -20,7 +20,9 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    // "noImplicitThis": true,
+    // "strictNullChecks": true
   },
   "include": [
     "src/**/*"
