@@ -6,18 +6,20 @@ interface Iuser {
 }
 interface IRequest extends Request {
   authenticated: boolean;
-  userData: undefined;
+  userData: Iuser;
 }
 
 const { sign, verify } = require("jsonwebtoken");
 
 const createTokens = (user: Iuser): void => {
   const accessToken = sign(
-    { username: user.username, id: user.id },
+    {
+      username: user.username,
+      id: user.id,
+    },
     process.env.JWT_SECRET,
     { expiresIn: process.env.JWT_EXPIRES_IN }
   );
-
   return accessToken;
 };
 

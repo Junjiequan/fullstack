@@ -8,13 +8,17 @@ import * as L from "./AuthElements";
 import { muiConstants } from "../../utilities/muiConstants";
 import { login_success } from "../../utilities/notifications";
 
+interface Iuser {
+  username?: string;
+  img?: string;
+}
+
 const Login = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [checkUsername, setCheckUsername] = useState("");
   const [checkPassword, setCheckPassword] = useState("");
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<Iuser>({});
   const [form, setForm] = useState({});
-
   const isMobile = useMediaQuery("(max-width:750px)");
   const handleSubmit = async (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault();
@@ -33,11 +37,12 @@ const Login = () => {
 
       if (resp.status === 200) {
         const user = await axios.get(PROFILE);
+
         setLoggedIn(true);
-        setUser(user.data);
+        setUser({ username: user.data.username, img: user.data.selectedFile });
         setCheckUsername("");
         setCheckPassword("");
-        login_success(user.data);
+        login_success(user.data.username);
       } else {
         setCheckUsername(resp.data.message);
         alert(resp.data.message);
@@ -69,13 +74,18 @@ const Login = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          flexDirection: "column",
           padding: "4rem 2.4rem ",
           my: "2.5rem",
           background: `white`,
           borderRadius: "10px",
         }}
       >
-        Welcome, &nbsp;<b style={{ color: "RebeccaPurple" }}>{user}</b>.
+        <p style={{ marginBottom: "2rem" }}>
+          Welcome, &nbsp;
+          <b style={{ color: "RebeccaPurple" }}>{user.username}</b>.
+        </p>
+        <img width="100" height="100" src={user.img} alt=""></img>
       </Box>
     );
   }

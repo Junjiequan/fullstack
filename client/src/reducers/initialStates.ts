@@ -2,7 +2,7 @@ export const initialState = {
   items: [
     {
       id: "What_ajjaa",
-      user_id: "A",
+      user_name: "jay",
       link: "add_tags_for_solutions",
       title: "Add tags for solutions",
       detail: "Easier to search for solutions based on a specific stack.",
@@ -45,7 +45,7 @@ export const initialState = {
     },
     {
       id: "asd_asdASD",
-      user_id: "B",
+      user_name: "jay",
       link: "2_tags_for_solutions",
       title: "2 tags for solutions",
       detail: "Easier to search for solutions based on a specific stack.",
@@ -81,7 +81,7 @@ export const initialState = {
     },
     {
       id: "asdisdAa_jdjf",
-      user_id: "C",
+      user_name: "jay",
       link: "3_tags_for_solutions",
       title: "3 tags for solutions",
       detail: "Easier to search for solutions based on a specific stack.",
@@ -110,7 +110,7 @@ export const initialState = {
     },
     {
       id: "What_acxvDSa",
-      user_id: "D",
+      user_name: "jay",
       link: "4_tags_for_solutions",
       title: "4 tags for solutions",
       detail: "Easier to search for solutions based on a specific stack.",
@@ -153,7 +153,7 @@ export const initialState = {
     },
     {
       id: "What_acxvDaaSda",
-      user_id: "D",
+      user_name: "jay",
       link: "6_tags_for_solutions",
       title: "6 tags for solutions",
       detail: "Easier to search for solutions based on a specific stack.",
@@ -165,19 +165,19 @@ export const initialState = {
     },
     {
       id: "What_agds4aSda",
-      user_id: "g",
-      link: "5_tags_for_solutions",
-      title: "5 tags for solutions",
+      user_name: "sb",
+      link: "This_is_not_my_post",
+      title: "This is not my post",
       detail: "Easier to search for solutions based on a specific stack.",
-      category: "Bug",
+      category: "Feature",
       vote: 23,
       voted: false,
-      status: "in-progress",
+      status: "suggestion",
       comments: [],
     },
     {
       id: "What_ag88da",
-      user_id: "f",
+      user_name: "jay",
       link: "7_tags_for_solutions",
       title: "7 tags for solutions",
       detail: "Easier to search23322 for solutions based on a specific stack.",

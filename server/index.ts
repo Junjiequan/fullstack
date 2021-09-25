@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 
 interface Username {
   username: string;
+  id: string;
 }
 interface IRequest extends Request {
   userData: Username;
@@ -11,6 +12,8 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
+
+const USERS = require("./models/user");
 
 const authRoutes = require("./routes/auth.ts");
 const { validateToken } = require("./JWT");
@@ -28,8 +31,15 @@ app.use(cookieParser());
 
 app.use("/auth", authRoutes);
 
-app.get("/profile", validateToken, (req: IRequest, res: Response) => {
-  res.json(req.userData.username);
+// move this section to controllers later!
+app.get("/profile", validateToken, async (req: IRequest, res: Response) => {
+  try {
+    const userId = req.userData.id;
+    const userProfile = await USERS.findById(userId);
+    res.status(200).json(userProfile);
+  } catch (err) {
+    res.status(404).json({ error: err });
+  }
 });
 
 mongoose.connect(

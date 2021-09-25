@@ -2,19 +2,25 @@ import React, { useState } from "react";
 import { useHistory } from "react-router";
 import axios from "axios";
 import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { muiConstants } from "../../utilities/muiConstants";
 import { signup_success, signup_fail } from "../../utilities/notifications";
+import FileBase from "react-file-base64";
 
 const Signup = () => {
   const history = useHistory();
   const [form, setForm] = useState({});
   const handleSubmit = async (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault();
-    const { username, password } = form as any;
+    const { username, password, selectedFile } = form as any;
     const URL = "http://localhost:5000/auth";
     try {
-      const res = await axios.post(URL + "/signup", { username, password });
+      const res = await axios.post(URL + "/signup", {
+        username,
+        password,
+        selectedFile,
+      });
       if (res.data) {
         history.push("/");
         signup_success(res.data.message);
@@ -60,6 +66,21 @@ const Signup = () => {
           required
           onChange={handleChange}
         />
+        <Box
+          sx={{
+            mt: "1rem",
+            mb: "1.5rem",
+          }}
+        >
+          <FileBase
+            type="file"
+            multiple={false}
+            onDone={({ base64 }) => setForm({ ...form, selectedFile: base64 })}
+            inputProps={{
+              accept: "image/*",
+            }}
+          />
+        </Box>
       </form>
       <Button
         variant="contained"

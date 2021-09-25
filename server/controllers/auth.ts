@@ -5,11 +5,12 @@ const bcrypt = require("bcrypt");
 const { createTokens } = require("../JWT");
 
 const signup: RequestHandler = (req: Request, res: Response) => {
-  const { username, password } = req.body;
+  const { username, password, selectedFile } = req.body;
   bcrypt.hash(password, 10).then((hash: string) => {
     USERS.create({
       username: username,
       password: hash,
+      selectedFile: selectedFile,
     })
       .then(() => {
         res.json({ message: "User Registered successfully" });

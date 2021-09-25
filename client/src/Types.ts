@@ -1,19 +1,10 @@
 export type InitialState = {
-  items: {
-    id: string;
-    link: string;
-    title: string;
-    detail: string;
-    category: string;
-    comments?: any;
-    vote: number;
-    voted: boolean;
-    status: string;
-  }[];
+  items: Item[];
 };
 
 export type Item = {
   id: string;
+  user_name: string;
   link: string;
   title: string;
   detail: string;
