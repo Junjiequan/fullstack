@@ -9,7 +9,7 @@ export type Item = {
   title: string;
   detail: string;
   category: string;
-  comments?: any;
+  comments?: [];
   vote: number;
   voted: boolean;
   status: string;
