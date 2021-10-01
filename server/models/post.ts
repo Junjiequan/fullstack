@@ -4,7 +4,7 @@ const postsSchema = new mongoose.Schema({
   id: {
     type: String,
   },
-  user_name: {
+  username: {
     type: String,
   },
   link: {

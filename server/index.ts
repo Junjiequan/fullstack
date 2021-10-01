@@ -17,6 +17,7 @@ const USERS = require("./models/user");
 
 const authRoutes = require("./routes/auth.ts");
 const { validateToken } = require("./JWT");
+const postRoutes = require("./routes/posts.ts");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -30,6 +31,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use("/auth", authRoutes);
+app.use("/posts", postRoutes);
 
 // move this section to controllers later!
 app.get("/profile", validateToken, async (req: IRequest, res: Response) => {
