@@ -20,13 +20,11 @@ const postsSchema = new mongoose.Schema({
     type: String,
   },
   comments: {
-    type: Array,
+    type: [Object],
   },
   vote: {
     type: Number,
-  },
-  voted: {
-    type: Boolean,
+    default: 0,
   },
   status: {
     type: String,

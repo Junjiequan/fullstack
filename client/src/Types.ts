@@ -1,22 +1,8 @@
 export type InitialState = {
   items: Item[];
 };
-
-export type Item = {
-  id: string;
-  user_name: string;
-  link: string;
-  title: string;
-  detail: string;
-  category: string;
-  comments?: [];
-  vote: number;
-  voted: boolean;
-  status: string;
-};
-
 export type Comments_type = {
-  id: any;
+  id: string;
   user_name: string;
   avatar: string;
   user_id: string;
@@ -25,11 +11,23 @@ export type Comments_type = {
 };
 
 export type Replies = {
-  id: any;
+  id: string;
   user_name: string;
   avatar: string;
   user_id: string;
   comment: string;
+};
+export type Item = {
+  id: string;
+  user_name: string;
+  link: string;
+  title: string;
+  detail: string;
+  category: string;
+  comments: Comments_type[] | any;
+  vote: number;
+  voted: boolean;
+  status: string;
 };
 
 export type RootState = {
