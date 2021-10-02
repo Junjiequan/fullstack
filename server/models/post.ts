@@ -18,6 +18,7 @@ const postsSchema = new mongoose.Schema({
   },
   category: {
     type: String,
+    default: "Feature",
   },
   comments: {
     type: [Object],
@@ -28,6 +29,7 @@ const postsSchema = new mongoose.Schema({
   },
   status: {
     type: String,
+    default: "Suggestion",
   },
 });
 

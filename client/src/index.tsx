@@ -9,6 +9,7 @@ import throttle from "lodash/throttle";
 import { loadState, saveState } from "./localStorage";
 
 const persistedState = loadState();
+
 const store = createStore(
   allReducer,
   persistedState,

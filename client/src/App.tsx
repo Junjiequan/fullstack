@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import { useLocation } from "react-router";
 import Home from "./pages/Home";
@@ -14,9 +15,26 @@ import { AnimatePresence } from "framer-motion";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import NotFound from "./pages/NotFound";
+import { fetchPosts } from "./api";
+import { useDispatch } from "react-redux";
+import { fetchAllPosts } from "./actions";
 
 const App = () => {
   const location = useLocation();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data } = await fetchPosts();
+
+        dispatch(fetchAllPosts(data));
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchData();
+  }, [dispatch]);
+
   return (
     <>
       <GlobalStyle />

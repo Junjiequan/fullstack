@@ -13,6 +13,8 @@ import {
 
 const feedbackReducer = (state: InitialState = initialState, action: any) => {
   switch (action.type) {
+    case "FETCH_ALL":
+      return { items: action.payload };
     case "ADD_FEEDBACK":
       return {
         ...state,

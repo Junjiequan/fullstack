@@ -1,12 +1,29 @@
 import { Item, Replies, Comments_type } from "../Types";
+import * as api from "../api";
 
-export const onAdd = (currentItem: Item[], newItem: Item) => {
+// export const onAdd = (currentItem: Item[], newItem: Item) => {
+//   const exist = currentItem.find((item: Item) => item.title === newItem.title);
+//   if (exist) {
+//     return currentItem;
+//   } else {
+//     const addedNewItem = [...currentItem, { ...newItem }];
+//     return addedNewItem;
+//   }
+// };
+export const onAdd = async (currentItem: Item[], newItem: Item) => {
   const exist = currentItem.find((item: Item) => item.title === newItem.title);
-  if (exist) {
-    return currentItem;
-  } else {
-    const addedNewItem = [...currentItem, { ...newItem }];
-    return addedNewItem;
+
+  try {
+    await api.addPost(newItem);
+
+    if (exist) {
+      return currentItem;
+    } else {
+      const addedNewItem = [...currentItem, { ...newItem }];
+      return addedNewItem;
+    }
+  } catch (err: any) {
+    console.log(err.response);
   }
 };
 

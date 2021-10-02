@@ -1,5 +1,12 @@
 import { Item, Comments_type } from "../Types";
 
+export const fetchAllPosts = (item: Item[]) => {
+  return {
+    type: "FETCH_ALL",
+    payload: item,
+  };
+};
+
 export const addFeedback = (item: Item) => {
   return {
     type: "ADD_FEEDBACK",

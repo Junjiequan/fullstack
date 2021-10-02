@@ -3,29 +3,44 @@ import { Request, Response, RequestHandler } from "express";
 const POSTS = require("../models/post");
 
 const getPost: RequestHandler = async (req: Request, res: Response) => {
-  const Posts = await POSTS.find();
-  if (!Posts) {
-    res.status(404).json({ error: "fetching posts failed" });
-  }
+  try {
+    const Posts = await POSTS.find();
 
-  res.status(200).json({ msg: "successfully loaded" });
+    res.status(200).json(Posts);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
 };
 
-const addPost: RequestHandler = (req: Request, res: Response) => {
-  const { user_name } = req.body;
-  POSTS.create({
+const addPost: RequestHandler = async (req: Request, res: Response) => {
+  const {
+    user_name,
+    id,
+    link,
+    title,
+    category,
+    detail,
+    comments,
+    vote,
+    status,
+  } = req.body;
+  const newPost = new POSTS({
     username: user_name,
-  })
-    .then(() => {
-      res.json({ message: "Post created!" });
-      console.log("posted");
-    })
-    .catch((err: never) => {
-      if (err) {
-        res.status(400).json({ error: "Post Exists!" });
-        console.log("????");
-      }
-    });
+    id,
+    title,
+    vote,
+    detail,
+    link,
+    category,
+    status,
+    comments,
+  });
+  try {
+    await newPost.save();
+    res.status(201).json(newPost);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
 };
 
 export = { getPost, addPost };

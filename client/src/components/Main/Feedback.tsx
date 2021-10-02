@@ -10,7 +10,9 @@ import { emptyVariants } from "../../utilities/framerMotion";
 
 const Feedback = ({ setCountSuggetions }: SetState) => {
   const DATA_REDUX_STORE = useSelector((state: RootState) =>
-    state.feedbacks.items.filter((item) => item.status === "suggestion")
+    state.feedbacks.items.filter(
+      (item) => item.status.toLowerCase() === "suggestion"
+    )
   );
   const categoryFilter = useSelector((state: RootState) => state.filters);
   const sortByFilter = useSelector((state: RootState) => state.sorts);
