@@ -24,7 +24,7 @@ const InnerComment = (item: Comments_type, index: number) => {
         addInnerReply(
           {
             id: randomId,
-            user_name: "Jay Smith Machine",
+            username: "Jay Smith Machine",
             avatar: "image-jay.jpg",
             user_id: "@machine.handsome",
             comment: textAreaTxt,
@@ -56,7 +56,7 @@ const InnerComment = (item: Comments_type, index: number) => {
       <I.CommentWrapper>
         <I.ReplyWrapper>
           <I.Name>
-            {item.user_name}
+            {item.username}
             <br />
             <I.Id>{item.user_id}</I.Id>
           </I.Name>

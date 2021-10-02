@@ -33,7 +33,7 @@ const AddComment = () => {
         addComment(
           {
             id: randomId,
-            user_name: "Jay Smith Machine",
+            username: "Jay Smith Machine",
             avatar: "image-jay.jpg",
             user_id: "@machine.handsome",
             comment: saveComment,

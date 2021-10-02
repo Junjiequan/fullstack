@@ -14,7 +14,7 @@ const getPost: RequestHandler = async (req: Request, res: Response) => {
 
 const addPost: RequestHandler = async (req: Request, res: Response) => {
   const {
-    user_name,
+    username,
     id,
     link,
     title,
@@ -25,7 +25,7 @@ const addPost: RequestHandler = async (req: Request, res: Response) => {
     status,
   } = req.body;
   const newPost = new POSTS({
-    username: user_name,
+    username,
     id,
     title,
     vote,

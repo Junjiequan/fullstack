@@ -3,7 +3,7 @@ export type InitialState = {
 };
 export type Comments_type = {
   id: string;
-  user_name: string;
+  username: string;
   avatar: string;
   user_id: string;
   comment: string;
@@ -12,14 +12,14 @@ export type Comments_type = {
 
 export type Replies = {
   id: string;
-  user_name: string;
+  username: string;
   avatar: string;
   user_id: string;
   comment: string;
 };
 export type Item = {
   id: string;
-  user_name: string;
+  username: string;
   link: string;
   title: string;
   detail: string;

@@ -29,7 +29,7 @@ const DirectComment = (item: Comments_type) => {
         addDirectReply(
           {
             id: randomId,
-            user_name: "Jay Smith Machine",
+            username: "Jay Smith Machine",
             avatar: "image-jay.jpg",
             user_id: "@machine.handsome",
             comment: textAreaTxt,
@@ -62,7 +62,7 @@ const DirectComment = (item: Comments_type) => {
       <C.CommentWrapper>
         <C.ReplyWrapper>
           <C.Name>
-            {item.user_name}
+            {item.username}
             <br />
             <C.Id>{item.user_id}</C.Id>
           </C.Name>

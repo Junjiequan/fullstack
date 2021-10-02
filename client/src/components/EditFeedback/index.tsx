@@ -48,7 +48,7 @@ const EditFeedback = () => {
       dispatch(
         editFeedback({
           id: currentItem.id,
-          user_name: "jay",
+          username: "jay",
           title: currentItem.title,
           vote: currentItem.vote,
           voted: currentItem.voted,

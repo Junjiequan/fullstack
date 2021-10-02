@@ -2,7 +2,7 @@ export const initialState = {
   items: [
     // {
     //   id: "What_ajjaa",
-    //   user_name: "jay",
+    //   username: "jay",
     //   link: "add_tags_for_solutions",
     //   title: "Add tags for solutions",
     //   detail: "Easier to search for solutions based on a specific stack.",
@@ -13,28 +13,28 @@ export const initialState = {
     //   comments: [
     //     {
     //       id: "abcd_abc",
-    //       user_name: "11gg Moss",
+    //       username: "11gg Moss",
     //       avatar: "image-jay.jpg",
     //       user_id: "@hexagon.bestagon",
     //       comment: "this is comment",
     //       replies: [
     //         {
     //           id: "zAcds_as",
-    //           user_name: "1-1Georrge random",
+    //           username: "1-1Georrge random",
     //           avatar: "image-george.jpg",
     //           user_id: "@george.johnson",
     //           comment: "this is another  comment comment",
     //         },
     //         {
     //           id: "sadio_ASD",
-    //           user_name: "1-2james dulex",
+    //           username: "1-2james dulex",
     //           avatar: "image-jay.jpg",
     //           user_id: "@james.christina",
     //           comment: "comment comment comment",
     //         },
     //         {
     //           id: "sadio_GG",
-    //           user_name: "1-2james dulex",
+    //           username: "1-2james dulex",
     //           avatar: "image-jay.jpg",
     //           user_id: "@james.christina",
     //           comment: "This is not a comment",
@@ -45,7 +45,7 @@ export const initialState = {
     // },
     // {
     //   id: "asd_asdASD",
-    //   user_name: "jay",
+    //   username: "jay",
     //   link: "2_tags_for_solutions",
     //   title: "2 tags for solutions",
     //   detail: "Easier to search for solutions based on a specific stack.",
@@ -56,21 +56,21 @@ export const initialState = {
     //   comments: [
     //     {
     //       id: "gh_asdASDds",
-    //       user_name: "22gg Moss",
+    //       username: "22gg Moss",
     //       avatar: "image-george.jpg",
     //       user_id: "@hexagon.bestagon",
     //       comment: "this is comment",
     //       replies: [
     //         {
     //           id: "AcasA_sdjsd",
-    //           user_name: "2-1Georrge random",
+    //           username: "2-1Georrge random",
     //           avatar: "image-george.jpg",
     //           user_id: "@george.johnson",
     //           comment: "this is another  comment comment",
     //         },
     //         {
     //           id: "OVP_JQIsasd",
-    //           user_name: "2-2james dulex",
+    //           username: "2-2james dulex",
     //           avatar: "image-james.jpg",
     //           user_id: "@james.christina",
     //           comment: "comment comment comment",
@@ -81,7 +81,7 @@ export const initialState = {
     // },
     // {
     //   id: "asdisdAa_jdjf",
-    //   user_name: "jay",
+    //   username: "jay",
     //   link: "3_tags_for_solutions",
     //   title: "3 tags for solutions",
     //   detail: "Easier to search for solutions based on a specific stack.",
@@ -92,14 +92,14 @@ export const initialState = {
     //   comments: [
     //     {
     //       id: "asdjvn_fdn",
-    //       user_name: "33gg Moss",
+    //       username: "33gg Moss",
     //       avatar: "image-george.jpg",
     //       user_id: "@hexagon.bestagon",
     //       comment: "this is comment",
     //       replies: [
     //         {
     //           id: "FsdADaf",
-    //           user_name: "3-2james dulex",
+    //           username: "3-2james dulex",
     //           avatar: "image-james.jpg",
     //           user_id: "@james.christina",
     //           comment: "comment comment comment",
@@ -110,7 +110,7 @@ export const initialState = {
     // },
     // {
     //   id: "What_acxvDSa",
-    //   user_name: "jay",
+    //   username: "jay",
     //   link: "4_tags_for_solutions",
     //   title: "4 tags for solutions",
     //   detail: "Easier to search for solutions based on a specific stack.",
@@ -121,28 +121,28 @@ export const initialState = {
     //   comments: [
     //     {
     //       id: "dsds_asdFG",
-    //       user_name: "44gg Moss",
+    //       username: "44gg Moss",
     //       avatar: "image-george.jpg",
     //       user_id: "@hexagon.bestagon",
     //       comment: "this is comment",
     //       replies: [
     //         {
     //           id: "dsds_asdAQ",
-    //           user_name: "4-1Georrge random",
+    //           username: "4-1Georrge random",
     //           avatar: "image-george.jpg",
     //           user_id: "@george.johnson",
     //           comment: "this is another  comment comment",
     //         },
     //         {
     //           id: "dsds_asdbas",
-    //           user_name: "4-1Georrge random",
+    //           username: "4-1Georrge random",
     //           avatar: "image-george.jpg",
     //           user_id: "@george.johnson",
     //           comment: "this is another  comment comment",
     //         },
     //         {
     //           id: "dsds_asdvbA",
-    //           user_name: "4-2james dulex",
+    //           username: "4-2james dulex",
     //           avatar: "image-james.jpg",
     //           user_id: "@james.christina",
     //           comment: "comment comment comment",
@@ -153,7 +153,7 @@ export const initialState = {
     // },
     // {
     //   id: "What_acxvDaaSda",
-    //   user_name: "jay",
+    //   username: "jay",
     //   link: "6_tags_for_solutions",
     //   title: "6 tags for solutions",
     //   detail: "Easier to search for solutions based on a specific stack.",
@@ -165,7 +165,7 @@ export const initialState = {
     // },
     // {
     //   id: "What_agds4aSda",
-    //   user_name: "sb",
+    //   username: "sb",
     //   link: "This_is_not_my_post",
     //   title: "This is not my post",
     //   detail: "Easier to search for solutions based on a specific stack.",
@@ -177,7 +177,7 @@ export const initialState = {
     // },
     // {
     //   id: "What_ag88da",
-    //   user_name: "jay",
+    //   username: "jay",
     //   link: "7_tags_for_solutions",
     //   title: "7 tags for solutions",
     //   detail: "Easier to search23322 for solutions based on a specific stack.",
