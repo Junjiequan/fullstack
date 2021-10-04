@@ -16,11 +16,11 @@ export const onAdd = async (currentItem: Item[], newItem: Item) => {
 
   try {
     await api.addPost(newItem);
-    const addedNewItem = [...currentItem, { ...newItem }];
-    return addedNewItem;
   } catch (err: any) {
     console.log(err.response);
   }
+  const addedNewItem = [...currentItem, { ...newItem }];
+  return addedNewItem;
 };
 
 export const onEdit = (currentItem: Item[], editItem: Item) => {

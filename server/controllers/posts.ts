@@ -49,7 +49,6 @@ export = { getPost, addPost };
  * @desc supposedly this section should include the following functions
  */
 
-//addPost
 //editPost
 //delPost
 //addComment
