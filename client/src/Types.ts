@@ -26,7 +26,7 @@ export type Item = {
   category: string;
   comments: Comments_type[] | any;
   vote: number;
-  voted: boolean;
+  voted?: boolean;
   status: string;
 };
 

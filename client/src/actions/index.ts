@@ -1,18 +1,38 @@
-import { Item, Comments_type } from "../Types";
+import type { Item, Comments_type } from "../Types";
+import type { AppDispatch } from "../index";
+import * as api from "../api";
 
-export const fetchAllPosts = (item: Item[]) => {
-  return {
-    type: "FETCH_ALL",
-    payload: item,
-  };
+// export const fetchAllPosts = (item: Item[]) => {
+//   return {
+//     type: "FETCH_ALL",
+//     payload: item,
+//   };
+// };
+// export const addFeedback = (item: Item) => {
+//   return {
+//     type: "ADD_FEEDBACK",
+//     payload: item,
+//   };
+// };
+
+export const fetchAllPosts = async (dispatch: AppDispatch) => {
+  try {
+    const { data } = await api.fetchPosts();
+    dispatch({ type: "FETCH_ALL", payload: data });
+  } catch (err: any) {
+    console.log(err.message);
+  }
 };
 
-export const addFeedback = (item: Item) => {
-  return {
-    type: "ADD_FEEDBACK",
-    payload: item,
-  };
+export const addFeedback = (post) => async (dispatch: AppDispatch) => {
+  try {
+    const { data } = await api.addFeedback(post);
+    dispatch({ type: "ADD_FEEDBACK", payload: data });
+  } catch (err: any) {
+    console.log(err.message);
+  }
 };
+
 export const editFeedback = (item: Item) => {
   return {
     type: "EDIT_FEEDBACK",

@@ -5,7 +5,6 @@ const POSTS = require("../models/post");
 const getPost: RequestHandler = async (req: Request, res: Response) => {
   try {
     const Posts = await POSTS.find();
-
     res.status(200).json(Posts);
   } catch (err) {
     res.status(404).json({ message: err.message });
@@ -14,8 +13,8 @@ const getPost: RequestHandler = async (req: Request, res: Response) => {
 
 const addPost: RequestHandler = async (req: Request, res: Response) => {
   const {
-    username,
     id,
+    username,
     link,
     title,
     category,
@@ -25,8 +24,8 @@ const addPost: RequestHandler = async (req: Request, res: Response) => {
     status,
   } = req.body;
   const newPost = new POSTS({
-    username,
     id,
+    username,
     title,
     vote,
     detail,
@@ -35,10 +34,14 @@ const addPost: RequestHandler = async (req: Request, res: Response) => {
     status,
     comments,
   });
+
+  console.log(req.body);
   try {
     await newPost.save();
     res.status(201).json(newPost);
   } catch (err) {
+    console.log(err);
+
     res.status(404).json({ message: err.message });
   }
 };
