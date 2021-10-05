@@ -14,9 +14,7 @@ const AddComment = () => {
 
   const dispatch = useDispatch();
   const CharacterRemain = 225 - textCount;
-  const target: string = useLocation()
-    .pathname.replace("/feedback-detail/", "")
-    .toLowerCase();
+  const target: string = useLocation().pathname.replace("/feedback-detail/", "").toLowerCase();
 
   const handleTextCount = (e: React.ChangeEvent<HTMLElement>) => {
     const event = e.currentTarget as HTMLInputElement;
@@ -53,11 +51,7 @@ const AddComment = () => {
   return (
     <C.Wrapper>
       <C.Title>Add Comment</C.Title>
-      <C.AddCommentWrapper
-        id="add-comment"
-        data-text={CharacterRemain + " characters left"}
-        onSubmit={handleSubmit}
-      >
+      <C.AddCommentWrapper id="add-comment" data-text={CharacterRemain + " characters left"} onSubmit={handleSubmit}>
         <C.TextArea
           name="comment"
           rows={3}
@@ -67,11 +61,7 @@ const AddComment = () => {
           onKeyDown={handleKeypress}
           required
         />
-        <FeedBackBtnPurple
-          data-text="Post Comment"
-          form="add-comment"
-          aria-label="submit"
-        />
+        <FeedBackBtnPurple data-text="Post Comment" form="add-comment" aria-label="submit" />
       </C.AddCommentWrapper>
     </C.Wrapper>
   );

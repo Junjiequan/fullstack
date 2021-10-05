@@ -4,18 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { Item, RootState } from "../../Types";
 import { addFeedback } from "../../actions";
 import { success, fail } from "../../utilities/notifications";
-import { nanoid } from "nanoid";
 import * as A from "./AddFeedbackElements";
-import {
-  FeedBackBtnPurple,
-  FeedBackLinkDarkBlue,
-} from "../../utilities/buttons";
+import { FeedBackBtnPurple, FeedBackLinkDarkBlue } from "../../utilities/buttons";
 
 const AddFeedback = () => {
-  const randomId = nanoid(10);
-  const DATA_REDUX_STORE = useSelector(
-    (state: RootState) => state.feedbacks.items
-  );
+  const DATA_REDUX_STORE = useSelector((state: RootState) => state.feedbacks.items);
 
   const [openModal, setOpenModal] = useState(false);
   const [sortBy, setSortBy] = useState("Feature");
@@ -25,15 +18,12 @@ const AddFeedback = () => {
   const categoryOptions = ["Feature", "UI", "UX", "Enhancement", "Bug"];
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    const isTitleExisted = !!DATA_REDUX_STORE.find(
-      (item: Item) => item.title === e.target.title.value
-    );
+    const isTitleExisted = !!DATA_REDUX_STORE.find((item: Item) => item.title === e.target.title.value);
     if (isTitleExisted) {
       fail();
     } else {
       dispatch(
         addFeedback({
-          id: randomId,
           username: "jay",
           link: e.target.title.value.toLowerCase().replace(/ /g, "_"),
           title: e.target.title.value,
@@ -77,12 +67,7 @@ const AddFeedback = () => {
             <br />
             Add a short, descriptive headline
           </A.Label>
-          <A.Input
-            name="title"
-            maxLength={50}
-            placeholder="Max 50 characters"
-            required
-          />
+          <A.Input name="title" maxLength={50} placeholder="Max 50 characters" required />
         </A.InputWrapper>
         <A.InputWrapper>
           <A.Label data-title="Category">
@@ -98,13 +83,7 @@ const AddFeedback = () => {
             {sortBy}
             <A.SelectIcon data-icon-rotate={openModal}>
               <svg width="10" height="7" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M1 6l4-4 4 4"
-                  stroke="#3442c7"
-                  strokeWidth="2"
-                  fill="none"
-                  fillRule="evenodd"
-                />
+                <path d="M1 6l4-4 4 4" stroke="#3442c7" strokeWidth="2" fill="none" fillRule="evenodd" />
               </svg>
             </A.SelectIcon>
           </A.OptionButton>
@@ -115,16 +94,9 @@ const AddFeedback = () => {
         <A.InputWrapper>
           <A.Label data-title="Feedback Detail">
             <br />
-            Include any specific comments on what should be improved, added,
-            etc.
+            Include any specific comments on what should be improved, added, etc.
           </A.Label>
-          <A.Textarea
-            name="detail"
-            maxLength={225}
-            rows={3}
-            placeholder="Max 225 characters"
-            required
-          />
+          <A.Textarea name="detail" maxLength={225} rows={3} placeholder="Max 225 characters" required />
         </A.InputWrapper>
         <A.ButtonWrapper>
           <FeedBackLinkDarkBlue
@@ -133,11 +105,7 @@ const AddFeedback = () => {
             data-text="Cancel"
             aria-label="cancel and back to homepage"
           />
-          <FeedBackBtnPurple
-            data-text="Add Feedback"
-            aria-label="create new feedback"
-            form="new-feedback"
-          />
+          <FeedBackBtnPurple data-text="Add Feedback" aria-label="create new feedback" form="new-feedback" />
         </A.ButtonWrapper>
       </A.Form>
     </A.Wrapper>

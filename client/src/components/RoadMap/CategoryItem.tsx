@@ -8,10 +8,7 @@ import { roadMapVariants } from "../../utilities/framerMotion";
 
 const CategoryItem = (props: Item) => {
   const dispatch = useDispatch();
-  const repliesLength = props.comments.reduce(
-    (sum: number, cur: Comments_type) => (sum += cur.replies.length),
-    0
-  );
+  const repliesLength = props.comments.reduce((sum: number, cur: Comments_type) => (sum += cur.replies.length), 0);
   const borderColor = () => {
     if (props.status === "planned") return "Orange";
     if (props.status === "in-progress") return "DarkViolet";
@@ -33,14 +30,10 @@ const CategoryItem = (props: Item) => {
       initial="initial"
       animate="in"
       exit="out"
-      key={props.id}
+      key={props._id}
     >
-      <C.CategoryItemSpan data-border-color={borderColor()}>
-        {props.status}
-      </C.CategoryItemSpan>
-      <C.CategoryItemLink to={"/feedback-detail/" + props.link}>
-        {props.title}
-      </C.CategoryItemLink>
+      <C.CategoryItemSpan data-border-color={borderColor()}>{props.status}</C.CategoryItemSpan>
+      <C.CategoryItemLink to={"/feedback-detail/" + props.link}>{props.title}</C.CategoryItemLink>
       <C.CategoryItemDesc>{props.detail}</C.CategoryItemDesc>
       <C.Feature> {props.category} </C.Feature>
       <C.VoteAndCommentedWrapper>

@@ -2,19 +2,6 @@ import type { Item, Comments_type } from "../Types";
 import type { AppDispatch } from "../index";
 import * as api from "../api";
 
-// export const fetchAllPosts = (item: Item[]) => {
-//   return {
-//     type: "FETCH_ALL",
-//     payload: item,
-//   };
-// };
-// export const addFeedback = (item: Item) => {
-//   return {
-//     type: "ADD_FEEDBACK",
-//     payload: item,
-//   };
-// };
-
 export const fetchAllPosts = async (dispatch: AppDispatch) => {
   try {
     const { data } = await api.fetchPosts();
@@ -33,17 +20,22 @@ export const addFeedback = (post) => async (dispatch: AppDispatch) => {
   }
 };
 
-export const editFeedback = (item: Item) => {
-  return {
-    type: "EDIT_FEEDBACK",
-    payload: item,
-  };
+export const editFeedback = (id, post) => async (dispatch: AppDispatch) => {
+  try {
+    const { data } = await api.editFeedback(id, post);
+    dispatch({ type: "EDIT_FEEDBACK", payload: data });
+  } catch (err: any) {
+    console.log(err.message);
+  }
 };
-export const delFeedback = (item: string) => {
-  return {
-    type: "DEL_FEEDBACK",
-    payload: item,
-  };
+
+export const delFeedback = (id) => async (dispatch: AppDispatch) => {
+  try {
+    await api.delFeedback(id);
+    dispatch({ type: "DEL_FEEDBACK", payload: id });
+  } catch (err: any) {
+    console.log(err.message);
+  }
 };
 export const addComment = (item: Comments_type, param: string) => {
   return {

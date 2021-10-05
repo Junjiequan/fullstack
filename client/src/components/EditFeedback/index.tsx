@@ -5,11 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { editFeedback, delFeedback } from "../../actions";
 import type { RootState, Item } from "../../Types";
 import * as E from "./EditFeedbackElements";
-import {
-  FeedBackBtnPurple,
-  FeedBackLinkDarkBlue,
-  FeedBackBtnRed,
-} from "../../utilities/buttons";
+import { FeedBackBtnPurple, FeedBackLinkDarkBlue, FeedBackBtnRed } from "../../utilities/buttons";
 import { removed, edited } from "../../utilities/notifications";
 
 const EditFeedback = () => {
@@ -17,15 +13,14 @@ const EditFeedback = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const feedbackParam = location.pathname.trim().split("/")[2];
+
   const currentItem: Item = useSelector((state: RootState) =>
     state.feedbacks.items.find((item: Item) => item.link === feedbackParam)
   )!;
 
   const [openCategoModal, setOpenCategoModal] = useState(false);
   const [openStatusModal, setOpenStatusModal] = useState(false);
-  const [feedbackText, setFeedbackText] = useState(
-    currentItem && currentItem.detail
-  );
+  const [feedbackText, setFeedbackText] = useState(currentItem && currentItem.detail);
   const [sortBy, setSortBy] = useState("Feature");
   const [status, setStatus] = useState("Suggestion");
   const categoryOptions = ["Feature", "UI", "UX", "Enhancement", "Bug"];
@@ -46,15 +41,14 @@ const EditFeedback = () => {
     e.preventDefault();
     if (currentItem) {
       dispatch(
-        editFeedback({
-          id: currentItem.id,
+        editFeedback(currentItem._id, {
           username: "jay",
           title: currentItem.title,
           vote: currentItem.vote,
           voted: currentItem.voted,
           link: feedbackParam,
           category: sortBy,
-          comments: [],
+          comments: currentItem.comments,
           status: status.toLowerCase(),
           detail: feedbackText,
         })
@@ -64,7 +58,7 @@ const EditFeedback = () => {
     }
   };
   const handleDelete = () => {
-    dispatch(delFeedback(currentItem.id));
+    dispatch(delFeedback(currentItem._id));
     removed();
   };
 
@@ -95,13 +89,7 @@ const EditFeedback = () => {
             <br />
             Feedback title cannot be changed.
           </E.Label>
-          <E.Input
-            name="title"
-            maxLength={50}
-            placeholder="Max 50 characters"
-            disabled
-            value={currentItem.title}
-          />
+          <E.Input name="title" maxLength={50} placeholder="Max 50 characters" disabled value={currentItem.title} />
         </E.InputWrapper>
 
         <E.InputWrapper>
@@ -118,13 +106,7 @@ const EditFeedback = () => {
             {sortBy}
             <E.SelectIcon data-icon-rotate={openCategoModal}>
               <svg width="10" height="7" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M1 6l4-4 4 4"
-                  stroke="#3442c7"
-                  strokeWidth="2"
-                  fill="none"
-                  fillRule="evenodd"
-                />
+                <path d="M1 6l4-4 4 4" stroke="#3442c7" strokeWidth="2" fill="none" fillRule="evenodd" />
               </svg>
             </E.SelectIcon>
           </E.OptionButton>
@@ -147,13 +129,7 @@ const EditFeedback = () => {
             {status}
             <E.SelectIcon data-icon-rotate={openStatusModal}>
               <svg width="10" height="7" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M1 6l4-4 4 4"
-                  stroke="#3442c7"
-                  strokeWidth="2"
-                  fill="none"
-                  fillRule="evenodd"
-                />
+                <path d="M1 6l4-4 4 4" stroke="#3442c7" strokeWidth="2" fill="none" fillRule="evenodd" />
               </svg>
             </E.SelectIcon>
           </E.OptionButton>
@@ -164,8 +140,7 @@ const EditFeedback = () => {
         <E.InputWrapper>
           <E.Label data-title="Feedback Detail">
             <br />
-            Include any specific comments on what should be improved, added,
-            etc.
+            Include any specific comments on what should be improved, added, etc.
           </E.Label>
           <E.Textarea
             name="detail"
@@ -184,17 +159,8 @@ const EditFeedback = () => {
             data-text="Cancel"
             aria-label="cancel and back to homepage"
           />
-          <FeedBackBtnPurple
-            data-text="Save Changes"
-            aria-label="Save Changes"
-            form="edit-feedback"
-          />
-          <FeedBackBtnRed
-            type="button"
-            data-text="Delete"
-            aria-label="delete feedback"
-            onClick={handleDelete}
-          />
+          <FeedBackBtnPurple data-text="Save Changes" aria-label="Save Changes" form="edit-feedback" />
+          <FeedBackBtnRed type="button" data-text="Delete" aria-label="delete feedback" onClick={handleDelete} />
         </E.ButtonWrapper>
       </E.Form>
     </E.Wrapper>

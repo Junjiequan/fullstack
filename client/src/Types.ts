@@ -18,7 +18,7 @@ export type Replies = {
   comment: string;
 };
 export type Item = {
-  id: string;
+  _id: string;
   username: string;
   link: string;
   title: string;

@@ -1,14 +1,12 @@
 import * as mongoose from "mongoose";
 
 const postsSchema = new mongoose.Schema({
-  id: {
-    type: String,
-    unique: true,
-  },
+  // id: {
+  //   type: String,
+  // },
   username: {
     type: String,
     unique: true,
-    sparse: true,
     require: true,
   },
   link: {
