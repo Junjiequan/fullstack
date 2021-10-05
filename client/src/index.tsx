@@ -21,8 +21,7 @@ import thunk from "redux-thunk"; //thunk allows return function instead of an ac
 // );
 
 // Combine REDUX DEVTOOLS with compose
-const composeEnhancer =
-  (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancer = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(allReducer, composeEnhancer(applyMiddleware(thunk)));
 

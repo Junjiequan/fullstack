@@ -1,12 +1,8 @@
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { Redirect } from "react-router";
-import {
-  DetailContainer,
-  DetailWrapper,
-  DetailNav,
-  DetailTopic,
-} from "./pagesElements";
+import { DetailContainer, DetailWrapper, DetailNav, DetailTopic } from "./pagesElements";
 import GoBack from "../components/GoBack";
 import { FeedBackLinkBlue } from "../utilities/buttons";
 import FeedbackItem from "../components/FeedbackItem";
@@ -16,21 +12,19 @@ import { pageVariants, pageTransition } from "../utilities/framerMotion";
 
 const FeedbackDetail = () => {
   const DATA_REDUX = useSelector((state: any) => state.feedbacks.items);
+
   const location = useLocation();
   const path = location.pathname.replace("/feedback-detail/", "");
   const CURRENT_PAGE = DATA_REDUX.find((item: any) => item.link === path);
+  // useEffect(() => {
+  //   dispatch(getTargetPost);
+  // }, [dispatch]);
 
   if (CURRENT_PAGE === undefined) {
     return <Redirect to="/error" />;
   }
   return (
-    <DetailContainer
-      initial="initial"
-      animate="in"
-      exit="out"
-      variants={pageVariants}
-      transition={pageTransition}
-    >
+    <DetailContainer initial="initial" animate="in" exit="out" variants={pageVariants} transition={pageTransition}>
       <DetailWrapper>
         <DetailNav>
           <GoBack isWhite={false} />

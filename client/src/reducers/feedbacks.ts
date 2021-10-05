@@ -1,19 +1,12 @@
 import { initialState } from "./initialStates";
 import { InitialState } from "../Types";
-import {
-  onAdd,
-  onEdit,
-  onDel,
-  upVote,
-  downVote,
-  addComment,
-  addDirectReply,
-  addInnerReply,
-} from "./feedbacksUtility";
+import { onAdd, onEdit, onDel, upVote, downVote, addComment, addDirectReply, addInnerReply } from "./feedbacksUtility";
 
 const feedbackReducer = (state: InitialState = initialState, action: any) => {
   switch (action.type) {
     case "FETCH_ALL":
+      return { items: action.payload };
+    case "TARGET_FEEDBACK":
       return { items: action.payload };
     case "ADD_FEEDBACK":
       return {

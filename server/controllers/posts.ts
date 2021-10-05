@@ -3,10 +3,9 @@ import mongoose from "mongoose";
 
 const POSTS = require("../models/post");
 
-const getPost: RequestHandler = async (req: Request, res: Response) => {
+const getAllPost: RequestHandler = async (req: Request, res: Response) => {
   try {
     const Posts = await POSTS.find();
-    console.log(Posts._id);
     res.status(200).json(Posts);
   } catch (err) {
     res.status(404).json({ message: err.message });
@@ -55,4 +54,4 @@ const deletePost: RequestHandler = async (req: Request, res: Response) => {
 //addDirectReply
 //addInnerReply
 
-export = { getPost, addPost, updatePost, deletePost };
+export = { getAllPost, addPost, updatePost, deletePost };
