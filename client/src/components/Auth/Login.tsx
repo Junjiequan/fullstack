@@ -7,17 +7,15 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import * as L from "./AuthElements";
 import { muiConstants } from "../../utilities/muiConstants";
 import { login_success } from "../../utilities/notifications";
-
-interface Iuser {
-  username?: string;
-  img?: string;
-}
+import { getUser, loggedIn, loggedOut } from "../../actions";
+import { useDispatch, useSelector } from "react-redux";
 
 const Login = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const dispatch = useDispatch();
+  const LOGGED = useSelector((state: any) => state.logged);
+  const USER = useSelector((state: any) => state.user);
   const [checkUsername, setCheckUsername] = useState("");
   const [checkPassword, setCheckPassword] = useState("");
-  const [user, setUser] = useState<Iuser>({});
   const [form, setForm] = useState({});
   const isMobile = useMediaQuery("(max-width:750px)");
   const handleSubmit = async (e: React.FormEvent<HTMLElement>) => {
@@ -38,11 +36,15 @@ const Login = () => {
       if (resp.status === 200) {
         const user = await axios.get(PROFILE);
 
-        setLoggedIn(true);
-        setUser({ username: user.data.username, img: user.data.selectedFile });
+        handleLoggin();
+        dispatch(getUser({ username: user.data.username, nickname: user.data.nickname, img: user.data.selectedFile }));
         setCheckUsername("");
         setCheckPassword("");
         login_success(user.data.username);
+        localStorage.setItem(
+          "feedback-app-user",
+          JSON.stringify({ username: user.data.username, nickname: user.data.nickname, img: user.data.selectedFile })
+        );
       } else {
         setCheckUsername(resp.data.message);
         alert(resp.data.message);
@@ -61,13 +63,18 @@ const Login = () => {
       console.log(err);
     }
   };
+  const handleLoggin = () => {
+    dispatch(loggedIn());
+  };
+  const handleLoggout = () => {
+    dispatch(loggedOut());
+    localStorage.removeItem("feedback-app-user");
+  };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.currentTarget.name]: e.currentTarget.value });
-    e.currentTarget.name === "password"
-      ? setCheckPassword("")
-      : setCheckUsername("");
+    e.currentTarget.name === "password" ? setCheckPassword("") : setCheckUsername("");
   };
-  if (loggedIn) {
+  if (LOGGED) {
     return (
       <Box
         sx={{
@@ -75,7 +82,7 @@ const Login = () => {
           justifyContent: "center",
           alignItems: "center",
           flexDirection: "column",
-          padding: "4rem 2.4rem ",
+          padding: "2rem 2.4rem ",
           my: "2.5rem",
           background: `white`,
           borderRadius: "10px",
@@ -83,9 +90,20 @@ const Login = () => {
       >
         <p style={{ marginBottom: "2rem" }}>
           Welcome, &nbsp;
-          <b style={{ color: "RebeccaPurple" }}>{user.username}</b>.
+          <b style={{ color: "RebeccaPurple" }}>{USER.username}</b>.
         </p>
-        <img width="100" height="100" src={user.img} alt=""></img>
+        <img width="80" height="80" src={USER.img} alt=""></img>
+        <Button
+          variant="contained"
+          color="warning"
+          type="submit"
+          form="loginForm"
+          value="Submit"
+          onClick={handleLoggout}
+          sx={{ mt: 2, p: 1, fontSize: "1.2rem", letterSpacing: "0.1rem" }}
+        >
+          Logout
+        </Button>
       </Box>
     );
   }
@@ -110,9 +128,7 @@ const Login = () => {
           fullWidth
           sx={{ my: 1 }}
           id="login-username"
-          label={muiConstants.label(
-            !checkUsername ? "username" : checkUsername
-          )}
+          label={muiConstants.label(!checkUsername ? "username" : checkUsername)}
           variant="outlined"
           onChange={handleChange}
           required
@@ -128,9 +144,7 @@ const Login = () => {
           fullWidth
           sx={{ my: 1 }}
           id="login-password"
-          label={muiConstants.label(
-            !checkPassword ? "password" : checkPassword
-          )}
+          label={muiConstants.label(!checkPassword ? "password" : checkPassword)}
           variant="outlined"
           onChange={handleChange}
           autoComplete="off"

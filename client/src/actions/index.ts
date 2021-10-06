@@ -83,3 +83,17 @@ export const setSort = (item: string) => {
     sort: item,
   };
 };
+
+export const getUser = (item: any) => {
+  return {
+    type: "GET_USER",
+    payload: item,
+  };
+};
+
+export const loggedIn = () => {
+  return { type: "LOGGED_IN" };
+};
+export const loggedOut = () => {
+  return { type: "LOGGED_OUT" };
+};

@@ -16,13 +16,22 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import NotFound from "./pages/NotFound";
 import { useDispatch } from "react-redux";
-import { fetchAllPosts } from "./actions";
+import { fetchAllPosts, getUser, loggedIn } from "./actions";
 
 const App = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchAllPosts);
+  }, [dispatch]);
+
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem("feedback-app-user");
+    if (loggedInUser) {
+      const foundUser = JSON.parse(loggedInUser);
+      dispatch(getUser(foundUser));
+      dispatch(loggedIn());
+    }
   }, [dispatch]);
 
   return (

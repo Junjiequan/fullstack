@@ -5,19 +5,24 @@ const bcrypt = require("bcrypt");
 const { createTokens } = require("../JWT");
 
 const signup: RequestHandler = (req: Request, res: Response) => {
-  const { username, password, selectedFile } = req.body;
+  const { username, password, selectedFile, nickname } = req.body;
   bcrypt.hash(password, 10).then((hash: string) => {
     USERS.create({
       username: username,
       password: hash,
+      nickname: nickname,
       selectedFile: selectedFile,
     })
       .then(() => {
         res.json({ message: "User Registered successfully" });
       })
-      .catch((err: never) => {
-        if (err) {
-          res.status(400).json({ error: "User Exists!" });
+      .catch((err) => {
+        if (err.name == "ValidationError") {
+          // console.error("Error Validating!", err);
+          res.status(422).json({ error: "Check image format" });
+        } else {
+          // console.error(err);
+          res.status(400).json({ error: "User exists!" });
         }
       });
   });

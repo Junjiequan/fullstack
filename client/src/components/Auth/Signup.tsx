@@ -11,14 +11,16 @@ import FileBase from "react-file-base64";
 const Signup = () => {
   const history = useHistory();
   const [form, setForm] = useState({});
+
   const handleSubmit = async (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault();
-    const { username, password, selectedFile } = form as any;
+    const { username, password, nickname, selectedFile } = form as any;
     const URL = "http://localhost:5000/auth";
     try {
       const res = await axios.post(URL + "/signup", {
         username,
         password,
+        nickname,
         selectedFile,
       });
       if (res.data) {
@@ -26,15 +28,14 @@ const Signup = () => {
         signup_success(res.data.message);
       }
     } catch (err: any) {
-      if (err) {
-        console.log(err.response.data);
-        signup_fail(err.response.data.error);
-      }
+      if (err.response.status === 413) return signup_fail("Image is too big");
+      signup_fail(err.response.data.error);
     }
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.currentTarget.name]: e.currentTarget.value });
   };
+
   return (
     <div>
       <h1 style={{ margin: "2rem 0" }}>REGISTER</h1>
@@ -66,20 +67,38 @@ const Signup = () => {
           required
           onChange={handleChange}
         />
+        <TextField
+          type="text"
+          inputProps={{
+            "aria-label": "nickname",
+            style: muiConstants.input,
+          }}
+          name="nickname"
+          fullWidth
+          sx={{ my: 1 }}
+          id="nickname"
+          label={muiConstants.label("nickname")}
+          variant="outlined"
+          required
+          onChange={handleChange}
+        />
         <Box
           sx={{
             mt: "1rem",
             mb: "1.5rem",
+            display: "flex",
+            position: "relative",
           }}
         >
           <FileBase
-            type="file"
-            multiple={false}
+            type="text"
+            // multiple={true}
             onDone={({ base64 }) => setForm({ ...form, selectedFile: base64 })}
-            inputProps={{
-              accept: "image/*",
-            }}
+            inputProps={{ accept: "image/*,.jpg,.png" }}
           />
+          <span style={{ fontSize: "1.2rem", color: "red", position: "absolute", left: "0", bottom: "-2rem" }}>
+            * Max : 20kb (only accept image)
+          </span>
         </Box>
       </form>
       <Button

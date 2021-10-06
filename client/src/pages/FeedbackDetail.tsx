@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { Redirect } from "react-router";
@@ -16,12 +15,9 @@ const FeedbackDetail = () => {
   const location = useLocation();
   const path = location.pathname.replace("/feedback-detail/", "");
   const CURRENT_PAGE = DATA_REDUX.find((item: any) => item.link === path);
-  // useEffect(() => {
-  //   dispatch(getTargetPost);
-  // }, [dispatch]);
 
   if (CURRENT_PAGE === undefined) {
-    return <Redirect to="/error" />;
+    return <Redirect to="/" />;
   }
   return (
     <DetailContainer initial="initial" animate="in" exit="out" variants={pageVariants} transition={pageTransition}>
