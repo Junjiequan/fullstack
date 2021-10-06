@@ -14,7 +14,6 @@ export const fetchAllPosts = async (dispatch: AppDispatch) => {
 export const addFeedback = (post) => async (dispatch: AppDispatch) => {
   try {
     const { data } = await api.addFeedback(post);
-    console.log(data);
     dispatch({ type: "ADD_FEEDBACK", payload: data });
   } catch (err: any) {
     console.log(err.message);
@@ -38,12 +37,13 @@ export const delFeedback = (id) => async (dispatch: AppDispatch) => {
     console.log(err.message);
   }
 };
-export const addComment = (item: Comments_type, param: string) => {
-  return {
-    type: "ADD_COMMENT",
-    payload: item,
-    target: param,
-  };
+export const addComment = (target, id, post) => async (dispatch: AppDispatch) => {
+  try {
+    const { data } = await api.addComment(id, post);
+    dispatch({ type: "ADD_COMMENT", payload: data, target: target });
+  } catch (err: any) {
+    console.log(err.message);
+  }
 };
 export const addDirectReply = (item: Comments_type, target_id: string) => {
   return {

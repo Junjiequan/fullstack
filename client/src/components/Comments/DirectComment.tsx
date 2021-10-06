@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addDirectReply } from "../../actions";
 import * as C from "./CommentsElements";
 import * as R from "./CommentsElements";
@@ -12,6 +12,7 @@ import { empty } from "../../utilities/notifications";
 import { Comments_type } from "../../Types";
 
 const DirectComment = (item: Comments_type) => {
+  const USER = useSelector((state: any) => state.user);
   const REPLIES = item.replies;
   const hasReply = REPLIES.length > 0;
   const [openReply, setOpenReply] = useState(false);
@@ -28,14 +29,14 @@ const DirectComment = (item: Comments_type) => {
       dispatch(
         addDirectReply(
           {
-            id: randomId,
-            username: "Jay Smith Machine",
-            avatar: "image-jay.jpg",
-            user_id: "@machine.handsome",
+            key: randomId,
+            username: USER.username,
+            avatar: USER.img,
+            user_id: USER.nickname,
             comment: textAreaTxt,
             replies: [],
           },
-          item.id
+          item.key
         )
       );
       setOpenReply(!openReply);
@@ -90,7 +91,7 @@ const DirectComment = (item: Comments_type) => {
           </AnimateHeight>
           <C.InnerCommentWrapper>
             {REPLIES.map((props: Replies) => (
-              <InnerComment {...props} key={props.id} />
+              <InnerComment {...props} key={randomId} />
             ))}
           </C.InnerCommentWrapper>
         </C.CommentTextWrapper>

@@ -12,7 +12,7 @@ import { pageVariants, pageTransition } from "../utilities/framerMotion";
 const FeedbackDetail = () => {
   const DATA_REDUX = useSelector((state: any) => state.feedbacks.items);
   const USER = useSelector((state: any) => state.user);
-
+  const LOGGED = useSelector((state: any) => state.logged);
   const location = useLocation();
   const path = location.pathname.replace("/feedback-detail/", "");
   const CURRENT_PAGE = DATA_REDUX.find((item: any) => item.link === path);
@@ -36,7 +36,7 @@ const FeedbackDetail = () => {
           <FeedbackItem {...CURRENT_PAGE} key={CURRENT_PAGE.id} />
         </DetailTopic>
         <Comments />
-        <AddComment />
+        {LOGGED && <AddComment />}
       </DetailWrapper>
     </DetailContainer>
   );

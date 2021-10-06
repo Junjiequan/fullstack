@@ -85,7 +85,7 @@ const Signup = () => {
         <Box
           sx={{
             mt: "1rem",
-            mb: "1.5rem",
+            mb: "2.5rem",
             display: "flex",
             position: "relative",
           }}

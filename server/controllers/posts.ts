@@ -2,7 +2,6 @@ import { Request, Response, RequestHandler } from "express";
 import mongoose from "mongoose";
 
 const POSTS = require("../models/post");
-
 const getAllPost: RequestHandler = async (req: Request, res: Response) => {
   try {
     const Posts = await POSTS.find();
@@ -46,12 +45,17 @@ const deletePost: RequestHandler = async (req: Request, res: Response) => {
 
   res.json({ message: `Feedback _id:${id} removed successfully!` });
 };
-/**
- * @desc supposedly this section should include the following functions
- */
 
-//addComment
-//addDirectReply
-//addInnerReply
+const addComment: RequestHandler = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { key, username, avatar, user_id, comment, replies } = req.body;
 
-export = { getAllPost, addPost, updatePost, deletePost };
+  if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).json(`Feedback _id: ${id} not found`);
+
+  const updatedPost = { key, username, avatar, user_id, comment, replies };
+  await POSTS.findByIdAndUpdate(id, { $push: { comments: updatedPost } }, { new: true });
+
+  res.json(updatedPost);
+};
+
+export = { getAllPost, addPost, updatePost, deletePost, addComment };

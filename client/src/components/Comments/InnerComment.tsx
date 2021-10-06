@@ -1,15 +1,17 @@
 import { useState } from "react";
 import * as I from "./CommentsElements";
 import * as R from "./CommentsElements";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addInnerReply } from "../../actions";
 import { FeedBackBtnPurple } from "../../utilities/buttons";
 import { nanoid } from "nanoid";
 import AnimateHeight from "react-animate-height";
 import { empty } from "../../utilities/notifications";
-import { Comments_type } from "../../Types";
+import { Replies } from "../../Types";
 
-const InnerComment = (item: Comments_type, index: number) => {
+const InnerComment = (item: Replies) => {
+  const USER = useSelector((state: any) => state.user);
+
   const [openReply, setOpenReply] = useState(false);
   const [height, setHeight] = useState<number | string>(0);
   const randomId = nanoid(10);
@@ -23,14 +25,13 @@ const InnerComment = (item: Comments_type, index: number) => {
       dispatch(
         addInnerReply(
           {
-            id: randomId,
-            username: "Jay Smith Machine",
-            avatar: "image-jay.jpg",
-            user_id: "@machine.handsome",
+            key: randomId,
+            username: USER.username,
+            avatar: USER.img,
+            user_id: USER.nickname,
             comment: textAreaTxt,
-            replies: [],
           },
-          item.id
+          item.key
         )
       );
       setOpenReply(!openReply);
@@ -49,10 +50,8 @@ const InnerComment = (item: Comments_type, index: number) => {
     setHeight(height === 0 ? "auto" : 0);
   };
   return (
-    <I.InnerComments key={index}>
-      <I.Avatar
-        src={require(`../../assets/user-images/${item.avatar}`).default}
-      />
+    <I.InnerComments>
+      <I.Avatar src={item.avatar} />
       <I.CommentWrapper>
         <I.ReplyWrapper>
           <I.Name>
@@ -60,21 +59,13 @@ const InnerComment = (item: Comments_type, index: number) => {
             <br />
             <I.Id>{item.user_id}</I.Id>
           </I.Name>
-          <I.Reply
-            data-text={openReply ? "Cancel" : "Reply"}
-            onClick={handleClick}
-            aria-controls="reply container"
-          />
+          <I.Reply data-text={openReply ? "Cancel" : "Reply"} onClick={handleClick} aria-controls="reply container" />
         </I.ReplyWrapper>
         <I.CommentTextWrapper>
           <I.CommentText>{item.comment}</I.CommentText>
 
           <AnimateHeight duration={300} height={height}>
-            <R.ReplyCommentWrapper
-              data-reply-open={openReply}
-              id="reply container"
-              aria-expanded={openReply}
-            >
+            <R.ReplyCommentWrapper data-reply-open={openReply} id="reply container" aria-expanded={openReply}>
               <R.TextArea
                 rows={3}
                 maxLength={170}

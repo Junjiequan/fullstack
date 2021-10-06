@@ -13,12 +13,13 @@ const Comments = () => {
     (sum: number, cur: Comments_type) => (sum += cur.replies.length),
     0
   );
+
   return (
     <C.Container>
       <C.Title>{targetDataComments.length + countReplies} &nbsp; Comments</C.Title>
       <C.Wrapper>
         {targetDataComments.map((props: Comments_type) => (
-          <DirectComment {...props} key={props.id} />
+          <DirectComment {...props} key={props.key} />
         ))}
       </C.Wrapper>
     </C.Container>
