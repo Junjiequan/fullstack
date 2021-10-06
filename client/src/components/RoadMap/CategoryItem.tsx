@@ -3,23 +3,28 @@ import ArrowUp from "../../assets/shared/icon-arrow-up.svg";
 import CommentIcon from "../../assets/shared/icon-comments.svg";
 import { Item, Comments_type } from "../../Types";
 import { upVote, downVote } from "../../actions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { roadMapVariants } from "../../utilities/framerMotion";
 
 const CategoryItem = (props: Item) => {
   const dispatch = useDispatch();
+  const USER = useSelector((state: any) => state.user);
   const repliesLength = props.comments.reduce((sum: number, cur: Comments_type) => (sum += cur.replies.length), 0);
   const borderColor = () => {
     if (props.status === "planned") return "Orange";
     if (props.status === "in-progress") return "DarkViolet";
     if (props.status === "live") return "LightSkyBlue";
   };
-
+  const isVoted = () => {
+    if (props.voted !== undefined) return props.voted;
+    const found = props.votedList.includes(USER.username);
+    return found;
+  };
   const handleVote = () => {
-    if (!props.voted) {
-      dispatch(upVote(props));
+    if (!props.voted && !isVoted()) {
+      dispatch(upVote(props, props._id, USER));
     } else {
-      dispatch(downVote(props));
+      dispatch(downVote(props, props._id, USER));
     }
   };
 
@@ -37,8 +42,8 @@ const CategoryItem = (props: Item) => {
       <C.CategoryItemDesc>{props.detail}</C.CategoryItemDesc>
       <C.Feature> {props.category} </C.Feature>
       <C.VoteAndCommentedWrapper>
-        <C.Vote data-voted={props.voted} onClick={handleVote}>
-          <C.VoteIcon src={ArrowUp} data-voted={props.voted} />
+        <C.Vote data-voted={isVoted()} onClick={handleVote}>
+          <C.VoteIcon src={ArrowUp} data-voted={isVoted()} />
           {props.vote}
         </C.Vote>
         <C.CommentCounter to={"/feedback-detail/" + props.link}>

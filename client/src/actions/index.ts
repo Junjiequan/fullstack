@@ -11,7 +11,7 @@ export const fetchAllPosts = async (dispatch: AppDispatch) => {
   }
 };
 
-export const addFeedback = (post) => async (dispatch: AppDispatch) => {
+export const addFeedback = (post: Item) => async (dispatch: AppDispatch) => {
   try {
     const { data } = await api.addFeedback(post);
     dispatch({ type: "ADD_FEEDBACK", payload: data });
@@ -20,7 +20,7 @@ export const addFeedback = (post) => async (dispatch: AppDispatch) => {
   }
 };
 
-export const editFeedback = (id, post) => async (dispatch: AppDispatch) => {
+export const editFeedback = (id: string, post: any) => async (dispatch: AppDispatch) => {
   try {
     const { data } = await api.editFeedback(id, post);
     dispatch({ type: "EDIT_FEEDBACK", payload: data });
@@ -29,7 +29,7 @@ export const editFeedback = (id, post) => async (dispatch: AppDispatch) => {
   }
 };
 
-export const delFeedback = (id) => async (dispatch: AppDispatch) => {
+export const delFeedback = (id: string) => async (dispatch: AppDispatch) => {
   try {
     await api.delFeedback(id);
     dispatch({ type: "DEL_FEEDBACK", payload: id });
@@ -37,7 +37,7 @@ export const delFeedback = (id) => async (dispatch: AppDispatch) => {
     console.log(err.message);
   }
 };
-export const addComment = (target, id, post) => async (dispatch: AppDispatch) => {
+export const addComment = (target: string, id: string, post: Comments_type) => async (dispatch: AppDispatch) => {
   try {
     const { data } = await api.addComment(id, post);
     dispatch({ type: "ADD_COMMENT", payload: data, target: target });
@@ -60,18 +60,24 @@ export const addInnerReply = (item: Comments_type, target_id: string) => {
   };
 };
 
-export const upVote = (item: Item) => {
-  return {
-    type: "UP_VOTE",
-    payload: item,
-  };
+export const upVote = (item: Item, id: string, user: any) => async (dispatch: AppDispatch) => {
+  try {
+    await api.upVote(id, user);
+    dispatch({ type: "UP_VOTE", payload: item });
+  } catch (err: any) {
+    console.log(err.message);
+  }
 };
-export const downVote = (item: Item) => {
-  return {
-    type: "DOWN_VOTE",
-    payload: item,
-  };
+
+export const downVote = (item: Item, id: string, user: any) => async (dispatch: AppDispatch) => {
+  try {
+    await api.downVote(id, user);
+    dispatch({ type: "DOWN_VOTE", payload: item });
+  } catch (err: any) {
+    console.log(err.message);
+  }
 };
+
 export const setFilter = (item: string) => {
   return {
     type: "SET_FILTER",

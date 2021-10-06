@@ -31,6 +31,7 @@ const AddFeedback = () => {
           detail: e.target.detail.value,
           comments: [],
           vote: 0,
+          votedList: [],
           status: "suggestion",
         })
       );

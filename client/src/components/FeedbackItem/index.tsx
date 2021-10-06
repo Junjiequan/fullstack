@@ -4,7 +4,7 @@ import { useAnimation } from "framer-motion";
 import ArrowUp from "../../assets/shared/icon-arrow-up.svg";
 import CommentIcon from "../../assets/shared/icon-comments.svg";
 import * as F from "./FeedbackItemElements";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { upVote, downVote } from "../../actions";
 import { Comments_type, Item } from "../../Types";
 import { feedbackVariants } from "../../utilities/framerMotion";
@@ -13,6 +13,7 @@ import { motion } from "framer-motion";
 const FeedbackItem = (props: Item) => {
   const controls = useAnimation();
   const location = useLocation();
+  const USER = useSelector((state: any) => state.user);
   const path = location.pathname.replace("/feedback-detail/", "");
   const clickable = props.link.toLowerCase() !== path;
   clickable === true ? controls.start(feedbackVariants.in) : controls.stop();
@@ -23,25 +24,31 @@ const FeedbackItem = (props: Item) => {
     (sum: number, cur: Comments_type) => (sum += cur.replies.length),
     0
   );
+  const isVoted = () => {
+    if (props.voted !== undefined) return props.voted;
+    const found = props.votedList.includes(USER.username);
+    return found;
+  };
   useEffect(() => {
     if (!clickable) {
       skipTab.current.tabIndex = -1;
       skipTab2.current.tabIndex = -1;
     }
   }, [clickable]);
+
   const handleVote = () => {
-    if (!props.voted) {
-      dispatch(upVote(props));
+    if (!props.voted && !isVoted()) {
+      dispatch(upVote(props, props._id, USER));
     } else {
-      dispatch(downVote(props));
+      dispatch(downVote(props, props._id, USER));
     }
   };
 
   return (
     <motion.li data-clickable={clickable} key={props._id} layout>
       <F.FeedbackDiv initial={clickable === true ? "initial" : "stop"} animate={controls} variants={feedbackVariants}>
-        <F.Vote data-voted={props.voted} onClick={handleVote}>
-          <F.VoteIcon width="10" height="7" src={ArrowUp} data-voted={props.voted} alt="" />
+        <F.Vote data-voted={isVoted()} onClick={handleVote}>
+          <F.VoteIcon width="10" height="7" src={ArrowUp} data-voted={isVoted()} alt="" />
           {props.vote}
         </F.Vote>
         <F.SuggestionWrapper to={"/feedback-detail/" + props.link} data-clickable={clickable} ref={skipTab}>

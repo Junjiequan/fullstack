@@ -18,7 +18,7 @@ export type Replies = {
   comment: string;
 };
 export type Item = {
-  _id: string;
+  _id?: any;
   username: string;
   link: string;
   title: string;
@@ -27,6 +27,7 @@ export type Item = {
   comments: Comments_type[] | any;
   vote: number;
   voted?: boolean;
+  votedList?: any;
   status: string;
 };
 

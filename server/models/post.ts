@@ -26,9 +26,13 @@ const postsSchema = new mongoose.Schema({
   comments: {
     type: [Object],
   },
+  votedList: {
+    type: [String],
+  },
   vote: {
     type: Number,
     default: 0,
+    min: 0,
   },
   status: {
     type: String,

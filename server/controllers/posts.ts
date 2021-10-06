@@ -2,6 +2,7 @@ import { Request, Response, RequestHandler } from "express";
 import mongoose from "mongoose";
 
 const POSTS = require("../models/post");
+
 const getAllPost: RequestHandler = async (req: Request, res: Response) => {
   try {
     const Posts = await POSTS.find();
@@ -12,8 +13,8 @@ const getAllPost: RequestHandler = async (req: Request, res: Response) => {
 };
 
 const addPost: RequestHandler = async (req: Request, res: Response) => {
-  const { username, link, title, category, detail, comments, vote, status } = req.body;
-  const newPost = new POSTS({ username, title, vote, detail, link, category, status, comments });
+  const { username, link, title, category, detail, comments, vote, votedList, status } = req.body;
+  const newPost = new POSTS({ username, title, vote, votedList, detail, link, category, status, comments });
   try {
     await newPost.save();
     res.status(201).json(newPost);
@@ -57,4 +58,29 @@ const addComment: RequestHandler = async (req: Request, res: Response) => {
   res.json(updatedPost);
 };
 
-export = { getAllPost, addPost, updatePost, deletePost, addComment };
+const upVote: RequestHandler = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { username } = req.body;
+  if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).json(`Feedback _id: ${id} not found`);
+
+  const post = await POSTS.findById(id);
+  if (post.votedList.includes(username)) return res.json({ message: `This user have already voted` });
+
+  await POSTS.findByIdAndUpdate(id, { vote: post.vote + 1, $push: { votedList: username } }, { new: true });
+
+  res.json(post);
+};
+
+const downVote: RequestHandler = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { username } = req.body;
+  if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).json(`Feedback _id: ${id} not found`);
+
+  const post = await POSTS.findById(id);
+  const updatedVotedList = post.votedList.filter((list: string) => list !== username);
+  await POSTS.findByIdAndUpdate(id, { vote: post.vote - 1, votedList: updatedVotedList }, { new: true });
+
+  res.json(post);
+};
+
+export = { getAllPost, addPost, updatePost, deletePost, addComment, upVote, downVote };
