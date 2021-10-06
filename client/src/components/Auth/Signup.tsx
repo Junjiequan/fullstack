@@ -97,7 +97,7 @@ const Signup = () => {
             inputProps={{ accept: "image/*,.jpg,.png" }}
           />
           <span style={{ fontSize: "1.2rem", color: "red", position: "absolute", left: "0", bottom: "-2rem" }}>
-            * Max : 20kb (only accept image)
+            * Max : 20kb (only accept image format)
           </span>
         </Box>
       </form>

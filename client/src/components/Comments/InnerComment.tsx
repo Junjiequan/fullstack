@@ -57,7 +57,7 @@ const InnerComment = (item: Replies) => {
           <I.Name>
             {item.username}
             <br />
-            <I.Id>{item.user_id}</I.Id>
+            <I.Id>@{item.user_id}</I.Id>
           </I.Name>
           <I.Reply data-text={openReply ? "Cancel" : "Reply"} onClick={handleClick} aria-controls="reply container" />
         </I.ReplyWrapper>

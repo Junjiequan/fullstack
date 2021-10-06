@@ -7,8 +7,10 @@ import FeedbackItem from "../FeedbackItem";
 import { Item, RootState, SetState } from "../../Types";
 import { AnimateSharedLayout } from "framer-motion";
 import { emptyVariants } from "../../utilities/framerMotion";
+import { Typography } from "@mui/material";
 
 const Feedback = ({ setCountSuggetions }: SetState) => {
+  const LOGGED = useSelector((state: any) => state.logged);
   const DATA_REDUX_STORE = useSelector((state: RootState) =>
     state.feedbacks.items.filter((item) => item.status.toLowerCase() === "suggestion")
   );
@@ -56,7 +58,13 @@ const Feedback = ({ setCountSuggetions }: SetState) => {
         <F.EmptyText>
           Got a suggestion? Found a bug that needs to be squashed? We love hearing about new ideas to improve our app.
         </F.EmptyText>
-        <FeedBackLink data-text="+ Add Feedback" to="/feedback-new" aria-label="link to feedback detail page" />
+        {LOGGED ? (
+          <FeedBackLink data-text="+ Add Feedback" to="/feedback-new" aria-label="link to feedback detail page" />
+        ) : (
+          <Typography variant="subtitle1" component="p" gutterBottom color="secondary">
+            Login to add feedback
+          </Typography>
+        )}
       </F.Empty>
     );
   };

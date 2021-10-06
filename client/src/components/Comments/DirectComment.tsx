@@ -13,6 +13,7 @@ import { Comments_type } from "../../Types";
 
 const DirectComment = (item: Comments_type) => {
   const USER = useSelector((state: any) => state.user);
+  const LOGGED = useSelector((state: any) => state.logged);
   const REPLIES = item.replies;
   const hasReply = REPLIES.length > 0;
   const [openReply, setOpenReply] = useState(false);
@@ -65,7 +66,9 @@ const DirectComment = (item: Comments_type) => {
             <br />
             <C.Id>@{item.user_id}</C.Id>
           </C.Name>
-          <C.Reply data-text={openReply ? "Cancel" : "Reply"} onClick={handleClick} aria-controls="reply container" />
+          {LOGGED && (
+            <C.Reply data-text={openReply ? "Cancel" : "Reply"} onClick={handleClick} aria-controls="reply container" />
+          )}
         </C.ReplyWrapper>
         <C.CommentTextWrapper>
           <C.CommentText>{item.comment}</C.CommentText>

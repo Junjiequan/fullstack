@@ -18,7 +18,6 @@ const addPost: RequestHandler = async (req: Request, res: Response) => {
     await newPost.save();
     res.status(201).json(newPost);
   } catch (err) {
-    console.log(err);
     res.status(404).json({ message: err.message });
   }
 };
