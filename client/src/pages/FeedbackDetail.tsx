@@ -11,11 +11,11 @@ import { pageVariants, pageTransition } from "../utilities/framerMotion";
 
 const FeedbackDetail = () => {
   const DATA_REDUX = useSelector((state: any) => state.feedbacks.items);
+  const USER = useSelector((state: any) => state.user);
 
   const location = useLocation();
   const path = location.pathname.replace("/feedback-detail/", "");
   const CURRENT_PAGE = DATA_REDUX.find((item: any) => item.link === path);
-
   if (CURRENT_PAGE === undefined) {
     return <Redirect to="/" />;
   }
@@ -24,11 +24,13 @@ const FeedbackDetail = () => {
       <DetailWrapper>
         <DetailNav>
           <GoBack isWhite={false} />
-          <FeedBackLinkBlue
-            data-text="Edit Feedback"
-            to={location.pathname + "/edit"}
-            aria-label="link to edit feedback page"
-          />
+          {USER.username === CURRENT_PAGE.username && (
+            <FeedBackLinkBlue
+              data-text="Edit Feedback"
+              to={location.pathname + "/edit"}
+              aria-label="link to edit feedback page"
+            />
+          )}
         </DetailNav>
         <DetailTopic>
           <FeedbackItem {...CURRENT_PAGE} key={CURRENT_PAGE.id} />

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router";
 import * as C from "./AddCommentElements";
 import { FeedBackBtnPurple } from "../../utilities/buttons";
@@ -8,6 +8,7 @@ import { nanoid } from "nanoid";
 import { empty } from "../../utilities/notifications";
 
 const AddComment = () => {
+  const USER = useSelector((state: any) => state.user);
   const [saveComment, setSaveComment] = useState("");
   const [textCount, setTextCount] = useState<number>(0);
   const randomId = nanoid(10);
@@ -31,9 +32,9 @@ const AddComment = () => {
         addComment(
           {
             id: randomId,
-            username: "Jay Smith Machine",
-            avatar: "image-jay.jpg",
-            user_id: "@machine.handsome",
+            username: USER.username,
+            avatar: USER.img,
+            user_id: USER.nickname,
             comment: saveComment,
             replies: [],
           },

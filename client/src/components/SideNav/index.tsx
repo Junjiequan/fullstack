@@ -13,18 +13,11 @@ import { Twirl as Hamburger } from "hamburger-react";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 
 const SideNav = () => {
-  const DATA_REDUX_STORE = useSelector(
-    (state: RootState) => state.feedbacks.items
-  );
-  const PlannedCount = DATA_REDUX_STORE.filter(
-    (item: Item) => item.status === "planned"
-  ).length;
-  const inProgressCount = DATA_REDUX_STORE.filter(
-    (item: Item) => item.status === "in-progress"
-  ).length;
-  const liveCount = DATA_REDUX_STORE.filter(
-    (item: Item) => item.status === "live"
-  ).length;
+  const LOGGED = useSelector((state: any) => state.logged);
+  const DATA_REDUX_STORE = useSelector((state: RootState) => state.feedbacks.items);
+  const PlannedCount = DATA_REDUX_STORE.filter((item: Item) => item.status === "planned").length;
+  const inProgressCount = DATA_REDUX_STORE.filter((item: Item) => item.status === "in-progress").length;
+  const liveCount = DATA_REDUX_STORE.filter((item: Item) => item.status === "live").length;
   const [isOpen, setIsOpen] = useState(false);
   const windowSize = useWindowWidth();
   const isMobile = windowSize <= 768;
@@ -63,58 +56,78 @@ const SideNav = () => {
           />
         </S.TitleWrapper>
         <S.MobileMenu data-mobile-nav={isOpen} id="menu">
-          <S.Overlay
-            data-mobile-nav={isOpen}
-            onClick={() => setIsOpen((prev: any) => !prev)}
-          />
+          <S.Overlay data-mobile-nav={isOpen} onClick={() => setIsOpen((prev: any) => !prev)} />
           <S.MobileWrapper data-mobile-nav={isOpen}>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginBottom: "2.5rem",
-              }}
-            >
-              <Button
-                href="/login"
-                variant="contained"
-                color="primary"
-                type="button"
-                value="login"
-                fullWidth
+            {LOGGED ? (
+              <Box
                 sx={{
-                  p: 1.2,
-                  fontSize: "1.2rem",
-                  letterSpacing: "0.1rem",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: "2.5rem",
                 }}
               >
-                Login
-              </Button>
-              <Button
-                href="/signup"
-                variant="contained"
-                color="secondary"
-                type="button"
-                value="register"
-                fullWidth
+                <Button
+                  href="/login"
+                  variant="contained"
+                  color="primary"
+                  type="button"
+                  value="login"
+                  fullWidth
+                  sx={{
+                    p: 1.2,
+                    fontSize: "1.2rem",
+                    letterSpacing: "0.1rem",
+                  }}
+                >
+                  Profile
+                </Button>
+              </Box>
+            ) : (
+              <Box
                 sx={{
-                  ml: 1,
-                  p: 1.2,
-                  fontSize: "1.2rem",
-                  letterSpacing: "0.1rem",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: "2.5rem",
                 }}
               >
-                Register
-              </Button>
-            </Box>
+                <Button
+                  href="/login"
+                  variant="contained"
+                  color="primary"
+                  type="button"
+                  value="login"
+                  fullWidth
+                  sx={{
+                    p: 1.2,
+                    fontSize: "1.2rem",
+                    letterSpacing: "0.1rem",
+                  }}
+                >
+                  Login
+                </Button>
+                <Button
+                  href="/signup"
+                  variant="contained"
+                  color="secondary"
+                  type="button"
+                  value="register"
+                  fullWidth
+                  sx={{
+                    ml: 1,
+                    p: 1.2,
+                    fontSize: "1.2rem",
+                    letterSpacing: "0.1rem",
+                  }}
+                >
+                  Register
+                </Button>
+              </Box>
+            )}
             <S.FilterWrapper>{FilterIDs.map(FilterBtns)}</S.FilterWrapper>
             <S.RoadMap>
               <S.RoadTitleRow>
                 <S.RoadH2>Roadmap</S.RoadH2>
-                <S.RoadView
-                  to="/roadmap"
-                  onClick={() => setIsOpen((prev: any) => !prev)}
-                >
+                <S.RoadView to="/roadmap" onClick={() => setIsOpen((prev: any) => !prev)}>
                   View
                 </S.RoadView>
               </S.RoadTitleRow>

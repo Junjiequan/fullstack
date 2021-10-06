@@ -9,7 +9,7 @@ import { FeedBackBtnPurple, FeedBackLinkDarkBlue } from "../../utilities/buttons
 
 const AddFeedback = () => {
   const DATA_REDUX_STORE = useSelector((state: RootState) => state.feedbacks.items);
-
+  const USER = useSelector((state: any) => state.user);
   const [openModal, setOpenModal] = useState(false);
   const [sortBy, setSortBy] = useState("Feature");
   const history = useHistory();
@@ -24,7 +24,7 @@ const AddFeedback = () => {
     } else {
       dispatch(
         addFeedback({
-          username: "jay",
+          username: USER.username,
           link: e.target.title.value.toLowerCase().replace(/ /g, "_"),
           title: e.target.title.value,
           category: e.target.sort.value,

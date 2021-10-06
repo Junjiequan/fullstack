@@ -15,11 +15,11 @@ const getAllPost: RequestHandler = async (req: Request, res: Response) => {
 const addPost: RequestHandler = async (req: Request, res: Response) => {
   const { username, link, title, category, detail, comments, vote, status } = req.body;
   const newPost = new POSTS({ username, title, vote, detail, link, category, status, comments });
-
   try {
     await newPost.save();
     res.status(201).json(newPost);
   } catch (err) {
+    console.log(err);
     res.status(404).json({ message: err.message });
   }
 };

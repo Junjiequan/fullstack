@@ -56,31 +56,21 @@ const DirectComment = (item: Comments_type) => {
 
   return (
     <C.DirectComments data-verticle-line={hasReply}>
-      <C.Avatar
-        src={require(`../../assets/user-images/${item.avatar}`).default}
-      />
+      <C.Avatar src={item.avatar} />
       <C.CommentWrapper>
         <C.ReplyWrapper>
           <C.Name>
             {item.username}
             <br />
-            <C.Id>{item.user_id}</C.Id>
+            <C.Id>@{item.user_id}</C.Id>
           </C.Name>
-          <C.Reply
-            data-text={openReply ? "Cancel" : "Reply"}
-            onClick={handleClick}
-            aria-controls="reply container"
-          />
+          <C.Reply data-text={openReply ? "Cancel" : "Reply"} onClick={handleClick} aria-controls="reply container" />
         </C.ReplyWrapper>
         <C.CommentTextWrapper>
           <C.CommentText>{item.comment}</C.CommentText>
 
           <AnimateHeight duration={300} height={height}>
-            <R.ReplyCommentWrapper
-              data-reply-open={openReply}
-              id="reply container"
-              aria-expanded={openReply}
-            >
+            <R.ReplyCommentWrapper data-reply-open={openReply} id="reply container" aria-expanded={openReply}>
               <R.TextArea
                 rows={3}
                 maxLength={170}

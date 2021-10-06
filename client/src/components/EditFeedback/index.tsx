@@ -13,11 +13,9 @@ const EditFeedback = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const feedbackParam = location.pathname.trim().split("/")[2];
-
   const currentItem: Item = useSelector((state: RootState) =>
     state.feedbacks.items.find((item: Item) => item.link === feedbackParam)
   )!;
-
   const [openCategoModal, setOpenCategoModal] = useState(false);
   const [openStatusModal, setOpenStatusModal] = useState(false);
   const [feedbackText, setFeedbackText] = useState(currentItem && currentItem.detail);
@@ -42,15 +40,10 @@ const EditFeedback = () => {
     if (currentItem) {
       dispatch(
         editFeedback(currentItem._id, {
-          username: "jay",
-          title: currentItem.title,
-          vote: currentItem.vote,
-          voted: currentItem.voted,
           link: feedbackParam,
           category: sortBy,
-          comments: currentItem.comments,
-          status: status.toLowerCase(),
           detail: feedbackText,
+          status: status.toLowerCase(),
         })
       );
       history.push("/");

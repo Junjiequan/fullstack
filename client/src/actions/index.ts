@@ -14,6 +14,7 @@ export const fetchAllPosts = async (dispatch: AppDispatch) => {
 export const addFeedback = (post) => async (dispatch: AppDispatch) => {
   try {
     const { data } = await api.addFeedback(post);
+    console.log(data);
     dispatch({ type: "ADD_FEEDBACK", payload: data });
   } catch (err: any) {
     console.log(err.message);
