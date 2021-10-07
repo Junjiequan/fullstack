@@ -9,6 +9,7 @@ import { roadMapVariants } from "../../utilities/framerMotion";
 const CategoryItem = (props: Item) => {
   const dispatch = useDispatch();
   const USER = useSelector((state: any) => state.user);
+  const LOGGED = useSelector((state: any) => state.logged);
   const repliesLength = props.comments.reduce((sum: number, cur: Comments_type) => (sum += cur.replies.length), 0);
   const borderColor = () => {
     if (props.status === "planned") return "Orange";
@@ -21,7 +22,8 @@ const CategoryItem = (props: Item) => {
     return found;
   };
   const handleVote = () => {
-    if (!props.voted && !isVoted()) {
+    if (!LOGGED) return;
+    if (!isVoted()) {
       dispatch(upVote(props, props._id, USER));
     } else {
       dispatch(downVote(props, props._id, USER));

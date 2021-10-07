@@ -2,7 +2,7 @@ export type InitialState = {
   items: Item[];
 };
 export type Comments_type = {
-  key: string;
+  _key: string;
   username: string;
   avatar: string;
   user_id: string;
@@ -11,7 +11,7 @@ export type Comments_type = {
 };
 
 export type Replies = {
-  key: string;
+  _key: string;
   username: string;
   avatar: string;
   user_id: string;

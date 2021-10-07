@@ -48,12 +48,53 @@ const deletePost: RequestHandler = async (req: Request, res: Response) => {
 
 const addComment: RequestHandler = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const { key, username, avatar, user_id, comment, replies } = req.body;
+  const { _key, username, avatar, user_id, comment, replies } = req.body;
 
   if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).json(`Feedback _id: ${id} not found`);
 
-  const updatedPost = { key, username, avatar, user_id, comment, replies };
+  const updatedPost = { _key, username, avatar, user_id, comment, replies };
   await POSTS.findByIdAndUpdate(id, { $push: { comments: updatedPost } }, { new: true });
+
+  res.json(updatedPost);
+};
+
+const addDirectReply: RequestHandler = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { _key, username, avatar, user_id, comment, replies } = req.body;
+  const updatedPost = { _key, username, avatar, user_id, comment, replies };
+  const targetPost = await POSTS.findOne({ _key: id });
+  const targetPostId = targetPost._id;
+
+  await POSTS.findOneAndUpdate(
+    {
+      _id: targetPostId,
+      "comments._key": id,
+    },
+    { $push: { "comments.$.replies": updatedPost } },
+    { new: true }
+  );
+
+  res.json(updatedPost);
+};
+
+//This is for future additional functionalities.
+//And yes, it is duplicated with addDirecReply function above for now.
+
+const addInnerReply: RequestHandler = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { _key, username, avatar, user_id, comment } = req.body;
+  const updatedPost = { _key, username, avatar, user_id, comment };
+  const targetPost = await POSTS.findOne({ _key: id });
+  const targetPostId = targetPost._id;
+
+  await POSTS.findOneAndUpdate(
+    {
+      _id: targetPostId,
+      "comments._key": id,
+    },
+    { $push: { "comments.$.replies": updatedPost } },
+    { new: true }
+  );
 
   res.json(updatedPost);
 };
@@ -83,4 +124,14 @@ const downVote: RequestHandler = async (req: Request, res: Response) => {
   res.json(post);
 };
 
-export = { getAllPost, addPost, updatePost, deletePost, addComment, upVote, downVote };
+export = {
+  getAllPost,
+  addPost,
+  updatePost,
+  deletePost,
+  addComment,
+  upVote,
+  downVote,
+  addDirectReply,
+  addInnerReply,
+};

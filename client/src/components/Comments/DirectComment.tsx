@@ -9,7 +9,7 @@ import { nanoid } from "nanoid";
 import AnimateHeight from "react-animate-height";
 import { FeedBackBtnPurple } from "../../utilities/buttons";
 import { empty } from "../../utilities/notifications";
-import { Comments_type } from "../../Types";
+import type { Comments_type } from "../../Types";
 
 const DirectComment = (item: Comments_type) => {
   const USER = useSelector((state: any) => state.user);
@@ -28,17 +28,14 @@ const DirectComment = (item: Comments_type) => {
       empty();
     } else {
       dispatch(
-        addDirectReply(
-          {
-            key: randomId,
-            username: USER.username,
-            avatar: USER.img,
-            user_id: USER.nickname,
-            comment: textAreaTxt,
-            replies: [],
-          },
-          item.key
-        )
+        addDirectReply(item._key, {
+          _key: randomId,
+          username: USER.username,
+          avatar: USER.img,
+          user_id: USER.nickname,
+          comment: textAreaTxt,
+          replies: [],
+        })
       );
       setOpenReply(!openReply);
       setHeight(!openReply ? "auto" : 0);
@@ -93,8 +90,8 @@ const DirectComment = (item: Comments_type) => {
             </R.ReplyCommentWrapper>
           </AnimateHeight>
           <C.InnerCommentWrapper>
-            {REPLIES.map((props: Replies) => (
-              <InnerComment {...props} key={randomId} />
+            {REPLIES.map((props: Replies, index: number) => (
+              <InnerComment {...props} key={index} data-directComments-key={item._key} />
             ))}
           </C.InnerCommentWrapper>
         </C.CommentTextWrapper>

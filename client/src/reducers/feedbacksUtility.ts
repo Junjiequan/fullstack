@@ -38,8 +38,10 @@ export const addComment = (currentItem: Item[], newItem: Replies, target: string
 };
 
 export const addDirectReply = (currentItem: Item[], newItem: Replies, target: string) => {
-  const itemIndex = currentItem.findIndex((item: Item) => item.comments.find((item: Item) => item._id === target));
-  const commentIndex = currentItem[itemIndex].comments.findIndex((item: Item) => item._id === target);
+  const itemIndex = currentItem.findIndex((item: Item) =>
+    item.comments.find((item: Comments_type) => item._key === target)
+  );
+  const commentIndex = currentItem[itemIndex].comments.findIndex((item: Comments_type) => item._key === target);
 
   currentItem[itemIndex].comments[commentIndex].replies.push(newItem);
   return [...currentItem];
@@ -47,10 +49,10 @@ export const addDirectReply = (currentItem: Item[], newItem: Replies, target: st
 
 export const addInnerReply = (currentItem: Item[], newItem: Replies, target: string) => {
   const itemIndex = currentItem.findIndex((item: Item) =>
-    item.comments.find((item: Comments_type) => item.replies.find((item: Item) => item._id === target))
+    item.comments.find((item: Comments_type) => item.replies.find((item: Replies) => item._key === target))
   );
   const commentIndex = currentItem[itemIndex].comments.findIndex((item: Comments_type) =>
-    item.replies.find((item: Item) => item._id === target)
+    item.replies.find((item: Replies) => item._key === target)
   );
 
   currentItem[itemIndex].comments[commentIndex].replies.push(newItem);

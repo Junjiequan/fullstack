@@ -14,6 +14,7 @@ const FeedbackItem = (props: Item) => {
   const controls = useAnimation();
   const location = useLocation();
   const USER = useSelector((state: any) => state.user);
+  const LOGGED = useSelector((state: any) => state.logged);
   const path = location.pathname.replace("/feedback-detail/", "");
   const clickable = props.link.toLowerCase() !== path;
   clickable === true ? controls.start(feedbackVariants.in) : controls.stop();
@@ -37,7 +38,8 @@ const FeedbackItem = (props: Item) => {
   }, [clickable]);
 
   const handleVote = () => {
-    if (!props.voted && !isVoted()) {
+    if (!LOGGED) return;
+    if (!isVoted()) {
       dispatch(upVote(props, props._id, USER));
     } else {
       dispatch(downVote(props, props._id, USER));

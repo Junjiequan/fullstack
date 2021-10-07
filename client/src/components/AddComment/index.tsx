@@ -34,7 +34,7 @@ const AddComment = () => {
     } else {
       dispatch(
         addComment(target, currentItem._id, {
-          key: randomId,
+          _key: randomId,
           username: USER.username,
           avatar: USER.img,
           user_id: USER.nickname,

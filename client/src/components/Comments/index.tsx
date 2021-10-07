@@ -18,8 +18,8 @@ const Comments = () => {
     <C.Container>
       <C.Title>{targetDataComments.length + countReplies} &nbsp; Comments</C.Title>
       <C.Wrapper>
-        {targetDataComments.map((props: Comments_type) => (
-          <DirectComment {...props} key={props.key} />
+        {targetDataComments.map((props: Comments_type, index: number) => (
+          <DirectComment {...props} key={index} />
         ))}
       </C.Wrapper>
     </C.Container>

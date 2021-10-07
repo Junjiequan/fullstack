@@ -7,11 +7,15 @@ import { FeedBackBtnPurple } from "../../utilities/buttons";
 import { nanoid } from "nanoid";
 import AnimateHeight from "react-animate-height";
 import { empty } from "../../utilities/notifications";
-import { Replies } from "../../Types";
+import type { Replies } from "../../Types";
+interface IReplies extends Replies {
+  ["data-directComments-key"]: string;
+}
 
-const InnerComment = (item: Replies) => {
+const InnerComment = (item: IReplies) => {
+  const directComment_key = item["data-directComments-key"];
   const USER = useSelector((state: any) => state.user);
-
+  const LOGGED = useSelector((state: any) => state.logged);
   const [openReply, setOpenReply] = useState(false);
   const [height, setHeight] = useState<number | string>(0);
   const randomId = nanoid(10);
@@ -23,16 +27,13 @@ const InnerComment = (item: Replies) => {
       empty();
     } else {
       dispatch(
-        addInnerReply(
-          {
-            key: randomId,
-            username: USER.username,
-            avatar: USER.img,
-            user_id: USER.nickname,
-            comment: textAreaTxt,
-          },
-          item.key
-        )
+        addInnerReply(item._key, directComment_key, {
+          _key: randomId,
+          username: USER.username,
+          avatar: USER.img,
+          user_id: USER.nickname,
+          comment: textAreaTxt,
+        })
       );
       setOpenReply(!openReply);
       setHeight(!openReply ? "auto" : 0);
@@ -59,7 +60,9 @@ const InnerComment = (item: Replies) => {
             <br />
             <I.Id>@{item.user_id}</I.Id>
           </I.Name>
-          <I.Reply data-text={openReply ? "Cancel" : "Reply"} onClick={handleClick} aria-controls="reply container" />
+          {LOGGED && (
+            <I.Reply data-text={openReply ? "Cancel" : "Reply"} onClick={handleClick} aria-controls="reply container" />
+          )}
         </I.ReplyWrapper>
         <I.CommentTextWrapper>
           <I.CommentText>{item.comment}</I.CommentText>
