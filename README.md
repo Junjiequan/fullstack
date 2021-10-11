@@ -48,8 +48,8 @@ SKIP_PREFLIGHT_CHECK=true
 `Prettier` VS-code extension
 
 ## Link
-[Live](https://fullstack-product-feedback-app.herokuapp.com/)
-[Code](https://github.com/a331998513/fullstack)
+- [Live](https://fullstack-product-feedback-app.herokuapp.com/)
+- [Code](https://github.com/a331998513/fullstack)
 
 ## Built with
 
