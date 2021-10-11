@@ -39,7 +39,7 @@ npm run start  (client)
 npm run server (server)
 ```
 
-### If typescript erro pops up with `npm run start` , create .env in the `/client` folder and include the text below
+### If typescript error pops up after `npm run start` with client side, create .env in the `/client` folder and include the text below
 ```
 SKIP_PREFLIGHT_CHECK=true
 ```
