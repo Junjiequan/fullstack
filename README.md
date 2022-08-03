@@ -1,5 +1,5 @@
 # Product feedback app - full stack [Link](https://fullstack-product-feedback-app.herokuapp.com/)
-# If the links pops up Application Error then check client side only version [link](https://product-feedback-app-jay.netlify.app/#/)
+
 ## Requirements
 Users should be able to
 
