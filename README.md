@@ -75,7 +75,7 @@ SKIP_PREFLIGHT_CHECK=true
 - cors
 
 ## Author
-- [Portfolio website](https://www.jayyy.site/)
+- [Portfolio website](https://a331998513.github.io/jay/))
 - [Front end mentor](https://www.frontendmentor.io/profile/a331998513)
 
 
