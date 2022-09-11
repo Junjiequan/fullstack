@@ -44,8 +44,6 @@ npm run server (server)
 SKIP_PREFLIGHT_CHECK=true
 ```
 
-## Format
-`Prettier` VS-code extension
 
 ## Link
 - [Live](https://fullstack-product-feedback-app.herokuapp.com/)
