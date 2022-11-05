@@ -1,4 +1,4 @@
-# Product feedback app - full stack [Link](https://fullstack-product-feedback-app.herokuapp.com/)
+# Product feedback app - full stack
 
 ## Requirements
 Users should be able to
